@@ -8,7 +8,15 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class GestionLocationLogementController extends AbstractController
 {
-    #[Route('/', name: 'calendrier')]
+    #[Route('/', name: 'authentification')]
+    public function authentification(): Response
+    {
+        return $this->render('gestion_location_logement/authentification.html.twig', [
+            'controller_name' => 'GestionLocationLogementController',
+        ]);
+    }
+
+    #[Route('/calendrier', name: 'calendrier')]
     public function calendrier(): Response
     {
         return $this->render('gestion_location_logement/calendrier.html.twig', [
