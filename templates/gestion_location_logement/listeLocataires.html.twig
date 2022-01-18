@@ -1,20 +1,30 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello GestionLocationLogementController!{% endblock %}
+{% block title %}Logement(s) enregistrer{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/Users/julie/OneDrive/Documents/tmp/GestionLocationLogement/src/Controller/GestionLocationLogementController.php'|file_link(0) }}">src/Controller/GestionLocationLogementController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/Users/julie/OneDrive/Documents/tmp/GestionLocationLogement/templates/gestion_location_logement/index.html.twig'|file_link(0) }}">templates/gestion_location_logement/index.html.twig</a></code></li>
-    </ul>
-</div>
+    <div class="row">
+		<div class="col-md-12">
+			<table class="table">
+				<thead>
+					<tr>
+						<th><strong>Nom</strong></th>
+						<th><strong>Prenom</strong></th>
+                        <th><strong>Téléphone</strong></th>
+                        <th><strong>Email</strong></th>
+                        <th><strong>Dernière location</strong></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+                    	<th scope="row">DERAMAIX</th>
+						<th scope="row">Julien</th>
+                        <th scope="row">07.83.97.21.81</th>
+                        <th scope="row">julien40.der@gmail.com</th>
+                        <th scope="row">01/01/2022</th>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
 {% endblock %}
