@@ -1,20 +1,146 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello GestionLocationLogementController!{% endblock %}
+{% block title %}Réservation location{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/Users/julie/OneDrive/Documents/tmp/GestionLocationLogement/src/Controller/GestionLocationLogementController.php'|file_link(0) }}">src/Controller/GestionLocationLogementController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/Users/julie/OneDrive/Documents/tmp/GestionLocationLogement/templates/gestion_location_logement/index.html.twig'|file_link(0) }}">templates/gestion_location_logement/index.html.twig</a></code></li>
-    </ul>
-</div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="card">
+                            <h5 class="card-header">
+                                Logement de location
+                            </h5>
+                            <div class="card-body">
+                                <p class="card-text">
+                                    <select class="form-select" aria-label="Default select example">
+                                        <option selected>Choisir votre logement</option>
+                                        <option value="1">Appartement n°1</option>
+                                        <option value="2">Appartement n°2</option>
+                                        <option value="3">Appartement n°3</option>
+                                    </select>
+                                </p>
+                            </div>
+                            <div class="card-footer">
+                            </div>
+					    </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card">
+                            <h5 class="card-header">
+                                Période de location
+                            </h5>
+                            <div class="card-body">
+                                <p class="card-text">
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text" id="basic-addon1">Date de début</span>
+                                        <input type="text" class="form-control" placeholder="" aria-label="Username" aria-describedby="basic-addon1">
+                                    </div>
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text" id="basic-addon1">Date de fin</span>
+                                        <input type="text" class="form-control" placeholder="" aria-label="Username" aria-describedby="basic-addon1">
+                                    </div>
+                                </p>
+                            </div>
+                            <div class="card-footer">
+                            </div>
+					    </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <h5 class="card-header">
+                                Locataire
+                            </h5>
+                            <div class="card-body">
+                                <p class="card-text">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="input-group mb-3">
+                                                <span class="input-group-text" id="basic-addon1">Nom</span>
+                                                <input type="text" class="form-control" placeholder="" aria-label="Username" aria-describedby="basic-addon1">
+                                            </div>
+                                            <div class="input-group mb-3">
+                                                <span class="input-group-text" id="basic-addon1">Prenom</span>
+                                                <input type="text" class="form-control" placeholder="" aria-label="Username" aria-describedby="basic-addon1">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="input-group mb-3">
+                                                    <span class="input-group-text" id="basic-addon1">Téléphone</span>
+                                                    <input type="text" class="form-control" placeholder="" aria-label="Username" aria-describedby="basic-addon1">
+                                                </div>
+                                                <div class="input-group mb-3">
+                                                    <span class="input-group-text" id="basic-addon1">Code Postal</span>
+                                                    <input type="text" class="form-control" placeholder="" aria-label="Username" aria-describedby="basic-addon1">
+                                                </div>
+                                        </div>
+                                    </div>
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text" id="basic-addon1">Adresse</span>
+                                        <input type="text" class="form-control" placeholder="" aria-label="Username" aria-describedby="basic-addon1">
+                                    </div>   
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text" id="basic-addon1">Email</span>
+                                        <input type="text" class="form-control" placeholder="" aria-label="Username" aria-describedby="basic-addon1">
+                                    </div>   
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                        <label class="form-check-label" for="flexCheckDefault">
+                                            Contrat signé
+                                        </label>
+                                    </div>
+                                </p>
+                            </div>
+                            <div class="card-footer">
+                            </div>
+					    </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <h5 class="card-header">
+                                Information du séjour
+                            </h5>
+                            <div class="card-body">
+                                <p class="card-text">
+                                    <select class="form-select" aria-label="Default select example">
+                                        <option selected>Nombre(s) d'adulte(s)</option>
+                                        <option value="1">1 adulte</option>
+                                        <option value="2">2 adultes</option>
+                                        <option value="3">3 adultes</option>
+                                    </select>
+                                    <select class="form-select" aria-label="Default select example">
+                                        <option selected>Nombre(s) d'enfant(s)</option>
+                                        <option value="1">1 enfant</option>
+                                        <option value="2">2 enfants</option>
+                                        <option value="3">3 enfants</option>
+                                    </select>
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text" id="basic-addon1">Prix nuit</span>
+                                        <input type="text" class="form-control" placeholder="€" aria-label="Username" aria-describedby="basic-addon1">
+                                    </div>
+                                </p>
+                            </div>
+                            <div class="card-footer">
+                            </div>
+					    </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <center>
+                            <button class="btn btn-sm btn-outline-secondary me-2" type="button"><a href="/calendrier">Enregistrer la location</a></button>
+                            <button class="btn btn-sm btn-outline-secondary me-2" type="button"><a href="/calendrier">Annuler</a></button>
+                        </center>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2"></div>
+        </div>
+    </div>
 {% endblock %}
