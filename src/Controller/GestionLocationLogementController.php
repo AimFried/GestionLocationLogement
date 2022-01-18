@@ -16,6 +16,14 @@ class GestionLocationLogementController extends AbstractController
         ]);
     }
 
+    #[Route('/reservation', name: 'reservation')]
+    public function reservation(): Response
+    {
+        return $this->render('gestion_location_logement/reservation.html.twig', [
+            'controller_name' => 'GestionLocationLogementController',
+        ]);
+    }
+
     #[Route('/logement', name: 'liste_logements')]
     public function listeLogement(): Response
     {
@@ -28,6 +36,14 @@ class GestionLocationLogementController extends AbstractController
     public function listeLocataire(): Response
     {
         return $this->render('gestion_location_logement/listeLocataires.html.twig', [
+            'controller_name' => 'GestionLocationLogementController',
+        ]);
+    }
+
+    #[Route('/historique', name: 'historique')]
+    public function historique(): Response
+    {
+        return $this->render('gestion_location_logement/historique.html.twig', [
             'controller_name' => 'GestionLocationLogementController',
         ]);
     }
