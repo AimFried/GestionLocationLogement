@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Logement(s) enregistrer{% endblock %}
+{% block title %}Locataire(s) enregistrer{% endblock %}
 
 {% block body %}
     <div class="row">
@@ -13,6 +13,7 @@
                         <th><strong>Téléphone</strong></th>
                         <th><strong>Email</strong></th>
                         <th><strong>Dernière location</strong></th>
+                        <th></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -22,6 +23,11 @@
                         <th scope="row">07.83.97.21.81</th>
                         <th scope="row">julien40.der@gmail.com</th>
                         <th scope="row">01/01/2022</th>
+                        <th scope="row">
+                            <button class="btn btn-sm btn-outline-secondary me-2" type="button">Modifier</button>
+                            <button class="btn btn-sm btn-outline-secondary me-2" type="button">Supprimer</button>
+                            <button class="btn btn-sm btn-outline-secondary me-2" type="button">Détails</button>
+                        </th>
 					</tr>
 				</tbody>
 			</table>
