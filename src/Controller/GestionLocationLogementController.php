@@ -58,10 +58,11 @@ class GestionLocationLogementController extends AbstractController
     }
 
     #[Route('/historique', name: 'historique')]
-    public function historique(): Response
+    public function historique(RESERVATIONRepository $reservationRepository): Response
     {
-        return $this->render('gestion_location_logement/historique.html.twig', [
-            'controller_name' => 'GestionLocationLogementController',
-        ]);
+        $reservations = $reservationRepository->findAll();
+
+        return $this->render('gestion_location_logement/historique.html.twig', 
+        ['reservations' => $reservations,]);
     }
 }

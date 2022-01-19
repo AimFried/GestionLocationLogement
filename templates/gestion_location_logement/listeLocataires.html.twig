@@ -1,5 +1,11 @@
 {% extends 'base.html.twig' %}
 
+{# Compte le nombres de locataires #}
+{% set nbrLocataires = 0 %}
+{% for unLocataires in locataires %}
+	{% set nbrLocataires = nbrLocataires + 1 %}
+{% endfor %}
+
 {% block title %}Vos locataire(s){% endblock %}
 
 {% block body %}
@@ -32,6 +38,18 @@
 						</th>
 					</tr>
 				{% endfor %}
+				{% if nbrLocataires == 0 %}
+					<tr>
+						<th scope="row">vide</th>
+						<th scope="row">vide</th>
+						<th scope="row">vide</th>
+						<th scope="row">vide</th>
+						<th scope="row">vide</th>
+						<th scope="row">
+							<button class="btn btn-sm btn-outline-secondary me-2" type="button">Ajouter</button>
+						</th>
+					</tr>
+				{% endif %}
 				</tbody>
 			</table>
 		</div>

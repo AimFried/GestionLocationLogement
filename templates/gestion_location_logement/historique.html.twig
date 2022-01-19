@@ -1,5 +1,11 @@
 {% extends 'base.html.twig' %}
 
+{# Compte le nombres d'historiques #}
+{% set nbrHistoriques = 0 %}
+{% for uneReservations in reservations %}
+	{% set nbrHistoriques = nbrHistoriques + 1 %}
+{% endfor %}
+
 {% block title %}Historique de vos locations{% endblock %}
 
 {% block body %}
@@ -18,6 +24,21 @@
 					</tr>
 				</thead>
 				<tbody>
+				{# Afficher tous les historiques #}
+				{% for uneReservations in reservations %}
+					<tr>
+                    	<th scope="row">{{uneReservations.logements.Nom}}</th>
+						<th scope="row">{{uneReservations.Locataires.Nom}}</th>
+                        <th scope="row">{{uneReservations.DateDebut}}</th>
+                        <th scope="row">{{uneReservations.DateFin}}</th>
+                        <th scope="row">{{uneReservations.PrixNuit}}</th>
+                        <th scope="row">{{uneReservations.PrixTotal}}</th>
+                        <th scope="row">
+                            <button class="btn btn-sm btn-outline-secondary me-2" type="button">Détails</button>
+                        </th>
+					</tr>
+				{% endfor %}
+				{% if nbrHistoriques == 0 %}
 					<tr>
                     	<th scope="row">vide</th>
 						<th scope="row">vide</th>
@@ -26,9 +47,10 @@
                         <th scope="row">vide</th>
                         <th scope="row">vide</th>
                         <th scope="row">
-                            <button class="btn btn-sm btn-outline-secondary me-2" type="button">Détails</button>
+                            <button class="btn btn-sm btn-outline-secondary me-2" type="button">Réserver</button>
                         </th>
 					</tr>
+				{% endif %}
 				</tbody>
 			</table>
 		</div>
