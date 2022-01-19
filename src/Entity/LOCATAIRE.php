@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\LOCATAIRERepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: LOCATAIRERepository::class)]
@@ -30,6 +32,14 @@ class LOCATAIRE
 
     #[ORM\Column(type: 'float')]
     private $CodePostal;
+
+    #[ORM\OneToMany(mappedBy: 'Locataires', targetEntity: RESERVATION::class)]
+    private $Reservations;
+
+    public function __construct()
+    {
+        $this->Reservations = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -104,6 +114,36 @@ class LOCATAIRE
     public function setCodePostal(string $CodePostal): self
     {
         $this->CodePostal = $CodePostal;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|RESERVATION[]
+     */
+    public function getReservations(): Collection
+    {
+        return $this->Reservations;
+    }
+
+    public function addReservation(RESERVATION $reservation): self
+    {
+        if (!$this->Reservations->contains($reservation)) {
+            $this->Reservations[] = $reservation;
+            $reservation->setLocataires($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReservation(RESERVATION $reservation): self
+    {
+        if ($this->Reservations->removeElement($reservation)) {
+            // set the owning side to null (unless already changed)
+            if ($reservation->getLocataires() === $this) {
+                $reservation->setLocataires(null);
+            }
+        }
 
         return $this;
     }
