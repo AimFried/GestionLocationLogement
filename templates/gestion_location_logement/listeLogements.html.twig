@@ -18,19 +18,27 @@
 					</tr>
 				</thead>
 				<tbody>
+				{# Afficher tous les logements #}
+				{% for unLogements in logements %}
+					{# Gestion de l'état du logement #}
+					{% set logementEtat = "Occupé" %}
+					{% if unLogements.Etat == 1 %}
+						{% set logementEtat = "Libre" %}
+					{% endif %}
 					<tr>
-                    	<th scope="row">Appartement n°1</th>
-						<th scope="row">Capbreton</th>
-                        <th scope="row">120 allée de Bourriaou</th>
-                        <th scope="row">40390</th>
-                        <th scope="row">8</th>
-                        <th scope="row">Libre</th>
+                    	<th scope="row">{{unLogements.Nom}}</th>
+						<th scope="row">{{unLogements.Ville}}</th>
+                        <th scope="row">{{unLogements.Adresse}}</th>
+                        <th scope="row">{{unLogements.CodePostal}}</th>
+                        <th scope="row">{{unLogements.PersMax}}</th>
+                        <th scope="row">{{logementEtat}}</th>
                         <th scope="row">
                             <button class="btn btn-sm btn-outline-secondary me-2" type="button">Modifier</button>
                             <button class="btn btn-sm btn-outline-secondary me-2" type="button">Supprimer</button>
                             <button class="btn btn-sm btn-outline-secondary me-2" type="button">Détails</button>
                         </th>
 					</tr>
+				{% endfor %}
 				</tbody>
 			</table>
 		</div>

@@ -10,25 +10,28 @@
 					<tr>
 						<th><strong>Nom</strong></th>
 						<th><strong>Prenom</strong></th>
-                        <th><strong>Téléphone</strong></th>
-                        <th><strong>Email</strong></th>
-                        <th><strong>Dernière location</strong></th>
-                        <th></th>
+						<th><strong>Telephone</strong></th>
+						<th><strong>Email</strong></th>
+						<th><strong>Dernière location</strong></th>
+						<th></th>
 					</tr>
 				</thead>
 				<tbody>
+				{# Afficher tous les locataires #}
+				{% for unLocataires in locataires %}
 					<tr>
-                    	<th scope="row">DERAMAIX</th>
-						<th scope="row">Julien</th>
-                        <th scope="row">07.83.97.21.81</th>
-                        <th scope="row">julien40.der@gmail.com</th>
-                        <th scope="row">01/01/2022</th>
-                        <th scope="row">
-                            <button class="btn btn-sm btn-outline-secondary me-2" type="button">Modifier</button>
-                            <button class="btn btn-sm btn-outline-secondary me-2" type="button">Supprimer</button>
-                            <button class="btn btn-sm btn-outline-secondary me-2" type="button">Détails</button>
-                        </th>
+						<th scope="row">{{unLocataires.Nom}}</th>
+						<th scope="row">{{unLocataires.Prenom}}</th>
+						<th scope="row">{{unLocataires.Telephone}}</th>
+						<th scope="row">{{unLocataires.Email}}</th>
+						<th scope="row">01/01/2022</th>
+						<th scope="row">
+							<button class="btn btn-sm btn-outline-secondary me-2" type="button">Modifier</button>
+							<button class="btn btn-sm btn-outline-secondary me-2" type="button">Supprimer</button>
+							<button class="btn btn-sm btn-outline-secondary me-2" type="button">Détails</button>
+						</th>
 					</tr>
+				{% endfor %}
 				</tbody>
 			</table>
 		</div>
