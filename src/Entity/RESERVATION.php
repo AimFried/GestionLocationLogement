@@ -13,10 +13,10 @@ class RESERVATION
     #[ORM\Column(type: 'integer')]
     private $id;
 
-    #[ORM\Column(type: 'date')]
+    #[ORM\Column(type: 'string', length: 255)]
     private $DateDebut;
 
-    #[ORM\Column(type: 'date')]
+    #[ORM\Column(type: 'string', length: 255)]
     private $DateFin;
 
     #[ORM\Column(type: 'float')]
@@ -47,24 +47,24 @@ class RESERVATION
         return $this->id;
     }
 
-    public function getDateDebut(): ?\DateTimeInterface
+    public function getDateDebut(): ?string
     {
         return $this->DateDebut;
     }
 
-    public function setDateDebut(\DateTimeInterface $DateDebut): self
+    public function setDateDebut(string $DateDebut): self
     {
         $this->DateDebut = $DateDebut;
 
         return $this;
     }
 
-    public function getDateFin(): ?\DateTimeInterface
+    public function getDateFin(): ?string
     {
         return $this->DateFin;
     }
 
-    public function setDateFin(\DateTimeInterface $DateFin): self
+    public function setDateFin(string $DateFin): self
     {
         $this->DateFin = $DateFin;
 

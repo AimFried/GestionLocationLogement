@@ -6,6 +6,7 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use App\Entity\LOGEMENT;
 use App\Entity\LOCATAIRE;
+use App\Entity\RESERVATION;
 
 class AppFixtures extends Fixture
 {
@@ -33,6 +34,7 @@ class AppFixtures extends Fixture
             $logement->setPersMax($faker->numberBetween($min=4, $max=8));
             $logement->setDescription($faker->realText(200,2));
             $logement->setEtat($faker->boolean);
+            $logements[] = $logement;
 
             //Enregistrement de l'entité générée
             $manager->persist($logement);
@@ -45,9 +47,10 @@ class AppFixtures extends Fixture
             $locataire->setNom($faker->lastName);
             $locataire->setPrenom($faker->firstName);
             $locataire->setEmail($faker->freeEmail);
-            $locataire->setTelephone($faker->serviceNumber);
+            $locataire->setTelephone($faker->e164PhoneNumber);
             $locataire->setAdresse($faker->address);
-            $locataire->setCodePostal($faker->randomNumber(5, true));            
+            $locataire->setCodePostal($faker->randomNumber(5, true)); 
+            $locataires[] = $locataire;           
 
             //Enregistrement de l'entité générée
             $manager->persist($locataire);
@@ -56,7 +59,23 @@ class AppFixtures extends Fixture
         //Création des réservations
         for($i = 0; $i < $NbrReservations; $i ++)
         {
+            //Donne une valeur aléatoire
+            $logementAssocieALaReservation = $faker->numberBetween($min=0, $max=$NbrLogements);
+            $locataireAssocieALaReservation = $faker->numberBetween($min=0, $max=$NbrLocataires);
+
+            $reservation = new Reservation();
+            $reservation->setDateDebut($faker->date);
+            $reservation->setDateFin($faker->date);
+            $reservation->setPrixNuit($faker->numberBetween($min=40, $max=80));
+            $reservation->setPrixTotal($faker->numberBetween($min=40, $max=250));
+            $reservation->setNbrAdulte($faker->numberBetween($min=1, $max=4));
+            $reservation->setNbrEnfant($faker->numberBetween($min=1, $max=4));
+            $reservation->setEtatContrat($faker->boolean);
+            $reservation->setLogements($logements[$logementAssocieALaReservation]);
+            $reservation->setLocataires($locataires[$locataireAssocieALaReservation]);
             
+            //Enregistrement de l'entité générée
+            $manager->persist($reservation);
         }
 
         $manager->flush();
