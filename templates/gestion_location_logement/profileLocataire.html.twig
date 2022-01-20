@@ -1,0 +1,109 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{locataires.Nom}} locataire{% endblock %}
+
+{% block body %}
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-1"></div>
+			
+				<div class="col-md-10">
+					<div class="row">
+					{# BOX INDIVIDU #}
+						<div class="col-md-4">
+							<div class="card">
+								<h5 class="card-header"><center>Individu</center></h5>
+								<div class="card-body">
+									<p class="card-text">
+										<div class="input-group mb-3">
+                                        	<span class="input-group-text" id="basic-addon1">Nom</span>
+                                       		<input type="text" class="form-control" placeholder="" value="{{locataires.Nom}}" aria-label="Username" aria-describedby="basic-addon1">
+                                    	</div>
+										<div class="input-group mb-3">
+                                        	<span class="input-group-text" id="basic-addon1">Prenom</span>
+                                       		<input type="text" class="form-control" placeholder="" value="{{locataires.Prenom}}" aria-label="Username" aria-describedby="basic-addon1">
+                                    	</div>
+									</p>
+								</div>
+							<div class="card-footer"></div>
+						</div>
+					</div>
+					{# BOX INFORMATION PERSONNEL #}
+					<div class="col-md-8">
+						<div class="card"><h5 class="card-header"><center>Information personnel</center></h5>
+						<div class="card-body">
+							<p class="card-text">
+								{# BOX GAUCHE #}
+								<div class="row">
+								<div class="col-md-6">
+									<div class="input-group mb-3">
+										<span class="input-group-text" id="basic-addon1">Email</span>
+										<input type="text" class="form-control" placeholder="" value="{{locataires.Email}}" aria-label="Username" aria-describedby="basic-addon1">
+									</div>
+									<div class="input-group mb-3">
+										<span class="input-group-text" id="basic-addon1">Adresse</span>
+										<input type="text" class="form-control" placeholder="" value="{{locataires.Adresse}}" aria-label="Username" aria-describedby="basic-addon1">
+									</div>
+								</div>
+								{# BOX DROITE #}
+								<div class="col-md-6">
+									<div class="input-group mb-3">
+										<span class="input-group-text" id="basic-addon1">Téléphone</span>
+										<input type="text" class="form-control" placeholder="" value="{{locataires.Telephone}}" aria-label="Username" aria-describedby="basic-addon1">
+									</div>
+									<div class="input-group mb-3">
+										<span class="input-group-text" id="basic-addon1">Code Postal</span>
+										<input type="text" class="form-control" placeholder="" value="{{locataires.CodePostal}}" aria-label="Username" aria-describedby="basic-addon1">
+									</div>
+								</div>
+								</div>	
+							</p>
+						</div>
+						<div class="card-footer"></div>
+						</div>
+					</div>
+					{# BOX RESERVATION #}
+				</div>
+				<div class="card"><h5 class="card-header">Les dernières réservation</h5>
+							<div class="card-body">
+								<p class="card-text">
+									<table class="table table-striped">
+										<thead>
+											<tr>
+												<th><strong>Logement</strong></th>
+												<th><strong>Date Debut</strong></th>
+												<th><strong>Date Fin</strong></th>
+												<th><strong>Adulte(s)</strong></th>
+												<th><strong>Enfant(s)</strong></th>
+												<th><strong>Prix Nuit</strong></th>
+												<th><strong>Prix Total</strong></th>
+											</tr>
+										</thead>
+										<tbody>
+										{% for uneReservations in locataires.reservations %}
+											<tr>
+												<th scope="row"><a href="{{path('profile_logement', {id:uneReservations.logements.id})}}">{{uneReservations.logements.Nom}}</a></th>
+												<th scope="row">{{uneReservations.DateDebut}}</th>
+												<th scope="row">{{uneReservations.DateFin}}</th>
+												<th scope="row">{{uneReservations.NbrAdulte}}</th>
+												<th scope="row">{{uneReservations.NbrEnfant}}</th>
+												<th scope="row">{{uneReservations.PrixNuit}}</th>
+												<th scope="row">{{uneReservations.PrixTotal}}</th>
+
+											</tr>
+										{% endfor %}
+										</tbody>
+									</table>
+										
+										
+								
+								</p>
+							</div>
+							<div class="card-footer"></div>
+						</div>
+			</div>
+		<div class="col-md-1">
+		</div>
+	</div>
+	</div>
+{% endblock %}

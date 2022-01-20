@@ -47,13 +47,34 @@ class GestionLocationLogementController extends AbstractController
         return $this->render('gestion_location_logement/listeLogements.html.twig', 
         ['logements' => $logements,]);
     }
+    
+    #[Route('/logement/{id}', name: 'profile_logement')]
+    public function profileLogement(LOGEMENTRepository $logementRepository,$id): Response
+    {
+        $logements = $logementRepository->find($id);
+        
+
+        return $this->render('gestion_location_logement/profileLogement.html.twig', 
+        ['logements' => $logements,]);
+    }
 
     #[Route('/locataire', name: 'liste_locataires')]
-    public function listeLocataire(LOCATAIRERepository $locataireRepository): Response
+    public function listeLocataire(LOCATAIRERepository $locataireRepository,RESERVATIONRepository $reservationRepository): Response
     {
         $locataires = $locataireRepository->findAll();
+        $reservations = $reservationRepository->findAll();
 
         return $this->render('gestion_location_logement/listeLocataires.html.twig', 
+        ['locataires' => $locataires,'reservations' => $reservations,]);
+    }
+
+    #[Route('/locataire/{id}', name: 'profile_locataire')]
+    public function profileLocataire(LOCATAIRERepository $locataireRepository,$id): Response
+    {
+        $locataires = $locataireRepository->find($id);
+        
+
+        return $this->render('gestion_location_logement/profileLocataire.html.twig', 
         ['locataires' => $locataires,]);
     }
 

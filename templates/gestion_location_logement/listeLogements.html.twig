@@ -6,7 +6,7 @@
 	{% set nbrLogements = nbrLogements + 1 %}
 {% endfor %}
 
-{% block title %}Vos logement(s){% endblock %}
+{% block title %}{{nbrLogements}} logement(s){% endblock %}
 
 {% block body %}
     <div class="row">

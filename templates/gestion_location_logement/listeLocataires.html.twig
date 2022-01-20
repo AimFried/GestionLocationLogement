@@ -2,11 +2,11 @@
 
 {# Compte le nombres de locataires #}
 {% set nbrLocataires = 0 %}
-{% for unLocataires in locataires %}
+{% for uneReservations in reservations %}
 	{% set nbrLocataires = nbrLocataires + 1 %}
 {% endfor %}
 
-{% block title %}Vos locataire(s){% endblock %}
+{% block title %}{{nbrLocataires}} locataire(s){% endblock %}
 
 {% block body %}
     <div class="row">
@@ -30,11 +30,33 @@
 						<th scope="row">{{unLocataires.Prenom}}</th>
 						<th scope="row">{{unLocataires.Telephone}}</th>
 						<th scope="row">{{unLocataires.Email}}</th>
-						<th scope="row">01/01/2022</th>
+						{# Variables etat #}
+						{% set lastLocEtat = false %}
+						{% set lastLoc = 0 %}
+
+						{% for uneReservations in reservations %}
+
+							{% if uneReservations.locataires.id == unLocataires.id %}
+
+								{% if lastLoc == 0 %}
+								<th scope="row">{{uneReservations.DateDebut}}</th>
+								{% set lastLocEtat = lastLocEtat + 1 %}
+								{% endif %}
+
+							{% set lastLocEtat = true %}
+
+							{% endif %}
+
+						{% endfor %}
+
+						{% if lastLocEtat == false %}
+							<th scope="row">Vide</th>	
+						{% endif %}		
+
 						<th scope="row">
 							<button class="btn btn-sm btn-outline-secondary me-2" type="button">Modifier</button>
 							<button class="btn btn-sm btn-outline-secondary me-2" type="button">Supprimer</button>
-							<button class="btn btn-sm btn-outline-secondary me-2" type="button">Détails</button>
+							<button class="btn btn-sm btn-outline-secondary me-2" type="button" ><a href="{{path('profile_locataire', {id:unLocataires.id})}}">Détails</a></button>
 						</th>
 					</tr>
 				{% endfor %}

@@ -1,0 +1,125 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{logements.Nom}} logement{% endblock %}
+
+{# Gestion de l'état du logement #}
+{% set logementEtat = "Occupé" %}
+{% if logements.Etat == 1 %}
+	{% set logementEtat = "Libre" %}
+{% endif %}
+
+{% block body %}
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-1"></div>
+			
+				<div class="col-md-10">
+					<div class="row">
+					{# BOX INDIVIDU #}
+						<div class="col-md-4">
+							<div class="card">
+								<h5 class="card-header"><center>Logement</center></h5>
+								<div class="card-body">
+									<p class="card-text">
+										<div class="input-group mb-3">
+                                        	<span class="input-group-text" id="basic-addon1">Nom</span>
+                                       		<input type="text" class="form-control" placeholder="" value="{{logements.Nom}}" aria-label="Username" aria-describedby="basic-addon1">
+                                    	</div>
+										<div class="input-group mb-3">
+                                        	<span class="input-group-text" id="basic-addon1">Pers. Max</span>
+                                       		<input type="text" class="form-control" placeholder="" value="{{logements.PersMax}}" aria-label="Username" aria-describedby="basic-addon1">
+                                    	</div>
+									</p>
+								</div>
+							<div class="card-footer"></div>
+						</div>
+					</div>
+					{# BOX INFORMATION PERSONNEL #}
+					<div class="col-md-8">
+						<div class="card"><h5 class="card-header"><center>Information</center></h5>
+						<div class="card-body">
+							<p class="card-text">
+								{# BOX GAUCHE #}
+								<div class="row">
+								<div class="col-md-6">
+									<div class="input-group mb-3">
+										<span class="input-group-text" id="basic-addon1">Ville</span>
+										<input type="text" class="form-control" placeholder="" value="{{logements.Ville}}" aria-label="Username" aria-describedby="basic-addon1">
+									</div>
+									<div class="input-group mb-3">
+										<span class="input-group-text" id="basic-addon1">Adresse</span>
+										<input type="text" class="form-control" placeholder="" value="{{logements.Adresse}}" aria-label="Username" aria-describedby="basic-addon1">
+									</div>
+								</div>
+								{# BOX DROITE #}
+								<div class="col-md-6">
+									<div class="input-group mb-3">
+										<span class="input-group-text" id="basic-addon1">Etat</span>
+										<input type="text" class="form-control" placeholder="" value="{{logementEtat}}" aria-label="Username" aria-describedby="basic-addon1">
+									</div>
+									<div class="input-group mb-3">
+										<span class="input-group-text" id="basic-addon1">Code Postal</span>
+										<input type="text" class="form-control" placeholder="" value="{{logements.CodePostal}}" aria-label="Username" aria-describedby="basic-addon1">
+									</div>
+								</div>
+								</div>	
+							</p>
+						</div>
+						<div class="card-footer"></div>
+						</div>
+					</div>
+					{# BOX RESERVATION #}
+				</div>
+				<div class="card"><h5 class="card-header">Description logement</h5>
+							<div class="card-body">
+								<p class="card-text">
+									<div class="mb-3">
+										<textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+									</div>
+								</p>
+							</div>
+							<div class="card-footer"></div>
+						</div>
+				<div class="card"><h5 class="card-header">Les dernières réservation</h5>
+							<div class="card-body">
+								<p class="card-text">
+									<table class="table table-striped">
+										<thead>
+											<tr>
+												<th><strong>Locataire</strong></th>
+												<th><strong>Date Debut</strong></th>
+												<th><strong>Date Fin</strong></th>
+												<th><strong>Adulte(s)</strong></th>
+												<th><strong>Enfant(s)</strong></th>
+												<th><strong>Prix Nuit</strong></th>
+												<th><strong>Prix Total</strong></th>
+											</tr>
+										</thead>
+										<tbody>
+										{% for uneReservations in logements.reservations %}
+											<tr>
+												<th scope="row"><a href="{{path('profile_locataire', {id:uneReservations.locataires.id})}}">{{uneReservations.locataires.Nom}}</a></th>
+												<th scope="row">{{uneReservations.DateDebut}}</th>
+												<th scope="row">{{uneReservations.DateFin}}</th>
+												<th scope="row">{{uneReservations.NbrAdulte}}</th>
+												<th scope="row">{{uneReservations.NbrEnfant}}</th>
+												<th scope="row">{{uneReservations.PrixNuit}}</th>
+												<th scope="row">{{uneReservations.PrixTotal}}</th>
+
+											</tr>
+										{% endfor %}
+										</tbody>
+									</table>
+										
+										
+								
+								</p>
+							</div>
+							<div class="card-footer"></div>
+						</div>
+			</div>
+		<div class="col-md-1">
+		</div>
+	</div>
+	</div>
+{% endblock %}
