@@ -24,11 +24,12 @@ class GestionLocationLogementController extends AbstractController
     }
 
     #[Route('/calendrier', name: 'calendrier')]
-    public function calendrier(): Response
+    public function calendrier(LOGEMENTRepository $logementRepository): Response
     {
-        return $this->render('gestion_location_logement/calendrier.html.twig', [
-            'controller_name' => 'GestionLocationLogementController',
-        ]);
+        $logements = $logementRepository->findAll();
+
+        return $this->render('gestion_location_logement/calendrier.html.twig', 
+        ['logements' => $logements,]);
     }
 
     #[Route('/reservation', name: 'reservation')]

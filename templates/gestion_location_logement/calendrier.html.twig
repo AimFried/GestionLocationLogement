@@ -12,13 +12,16 @@
                     </h5>
                     <div class="card-body">
                         <p class="card-text">
-                            <select class="form-select" aria-label="Default select example">
-                                <option selected>Choisir votre logement</option>
-                                <option value="1">Appartement n°1</option>
-                                <option value="2">Appartement n°2</option>
-                                <option value="3">Appartement n°3</option>
+                            <select class="form-select" size="5" aria-label="size 3 select example">
+                                {% for unLogements in logements %}
+                                <option value="1">{{unLogements.Nom}}</option>
+                                {% endfor %}
                             </select>
                         </p>
+                        <div class="card-footer">
+                        <strong>Ville :</strong>
+                        <strong>Pers. Max : :</strong>
+                    </div>
                     </div>
                     <div class="card-footer">
                         Information complémentaire
