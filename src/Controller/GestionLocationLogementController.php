@@ -56,63 +56,7 @@ class GestionLocationLogementController extends AbstractController
         return $this->render('gestion_location_logement/calendrier.html.twig', compact('data','logements'));
     }
 
-    #[Route('/reservation', name: 'reservation')]
-    public function reservation(): Response
-    {
-        return $this->render('gestion_location_logement/reservation.html.twig', [
-            'controller_name' => 'GestionLocationLogementController',
-        ]);
-    }
-
-    #[Route('/logement', name: 'liste_logements')]
-    public function listeLogement(LOGEMENTRepository $logementRepository): Response
-    {
-        $logements = $logementRepository->findAll();
-
-        return $this->render('gestion_location_logement/listeLogements.html.twig', 
-        ['logements' => $logements,]);
-    }
-    
-    #[Route('/logement/{id}', name: 'profile_logement')]
-    public function profileLogement(LOGEMENTRepository $logementRepository,$id): Response
-    {
-        $logements = $logementRepository->find($id);
-        
-
-        return $this->render('gestion_location_logement/profileLogement.html.twig', 
-        ['logements' => $logements,]);
-    }
-
-    #[Route('/locataire', name: 'liste_locataires')]
-    public function listeLocataire(LOCATAIRERepository $locataireRepository,RESERVATIONRepository $reservationRepository): Response
-    {
-        $locataires = $locataireRepository->findAll();
-        $reservations = $reservationRepository->findAll();
-
-        return $this->render('gestion_location_logement/listeLocataires.html.twig', 
-        ['locataires' => $locataires,'reservations' => $reservations,]);
-    }
-
-    #[Route('/locataire/{id}', name: 'profile_locataire')]
-    public function profileLocataire(LOCATAIRERepository $locataireRepository,$id): Response
-    {
-        $locataires = $locataireRepository->find($id);
-        
-
-        return $this->render('gestion_location_logement/profileLocataire.html.twig', 
-        ['locataires' => $locataires,]);
-    }
-
-    #[Route('/historique', name: 'historique')]
-    public function historique(RESERVATIONRepository $reservationRepository): Response
-    {
-        $reservations = $reservationRepository->findAll();
-
-        return $this->render('gestion_location_logement/historique.html.twig', 
-        ['reservations' => $reservations,]);
-    }
-
-    #[Route('/calendrier/event/{id}', name: 'event_update', methods:"PUT")]
+    /*#[Route('/calendrier/event/{id}', name: 'event_update', methods:"PUT")]
     public function majEvent(?calendarRepository $calendar, Request $request): Response
     {
        
@@ -165,5 +109,6 @@ class GestionLocationLogementController extends AbstractController
             //Les données sont imcomplètes
             return new Response('Données imcomplètes', 404);
         }
-    }
+    }*/
+ 
 }
