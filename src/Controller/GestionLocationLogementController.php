@@ -13,7 +13,11 @@ use App\Repository\CalendarRepository;
 use App\Repository\LOGEMENTRepository;
 use App\Repository\LOCATAIRERepository;
 use App\Repository\RESERVATIONRepository;
-
+use Doctrine\DBAL\Types\DateTimeType;
+use Doctrine\DBAL\Types\DateType;
+use Symfony\Component\Form\Extension\Core\Type\DateType as TypeDateType;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Validator\Constraints\DateTime;
 
 class GestionLocationLogementController extends AbstractController
 {
@@ -106,5 +110,60 @@ class GestionLocationLogementController extends AbstractController
 
         return $this->render('gestion_location_logement/historique.html.twig', 
         ['reservations' => $reservations,]);
+    }
+
+    #[Route('/calendrier/event/{id}', name: 'event_update', methods:"PUT")]
+    public function majEvent(?calendarRepository $calendar, Request $request): Response
+    {
+       
+        // On récupére les données
+        $donnees = json_decode($request->getContent());
+
+        if(
+            isset($donnees->title) && !empty($donnees->title) &&
+            isset($donnees->start) && !empty($donnees->start) &&
+            isset($donnees->description) && !empty($donnees->description) &&
+            isset($donnees->backgroundColor) && !empty($donnees->backgroundColor) &&
+            isset($donnees->borderColor) && !empty($donnees->borderColor) &&
+            isset($donnees->textColor) && !empty($donnees->textColor)
+
+        ){
+            //Les données sont complètes
+            //On initialise un code
+            $code = 200;
+            
+            //On vérifie si l'id existe
+            if(!$calendar){
+                //On instancie un rendez-vous
+                $calendar = new Calendar;
+                //On change le code
+                $code = 201;
+            }
+                //On hydrate l'objet avec les données
+                $calendar->setTitle($donnees->title);
+                $calendar->setDescription($donnees->description);
+                $calendar->setStart(new DateTime($donnees->start));
+                if($donnees->allDay)
+                {
+                    $calendar->setEnd(new DateTimeType($donnees->end));
+                }
+                $calendar->setAllDay($donnees->allDay);
+                $calendar->setBackgroundColor($donnees->backgroundColor);
+                $calendar->setBorderColor($donnees->borderColor);
+                $calendar->setTextColor($donnees->textColor);
+                
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($calendar);
+                $em->flush();
+                
+                //On retourne le code
+                return new Response('OK',$code);
+          
+
+        }
+        else{
+            //Les données sont imcomplètes
+            return new Response('Données imcomplètes', 404);
+        }
     }
 }

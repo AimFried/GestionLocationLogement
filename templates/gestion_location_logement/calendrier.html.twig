@@ -45,6 +45,7 @@
     document.addEventListener('DOMContentLoaded', function() {
         var calendarEl = document.getElementById('calendrier');
         var calendar = new FullCalendar.Calendar(calendarEl, {
+          //Paramétre du calendrier
           initialView: 'dayGridMonth',
           locale: 'fr',
           timeZone: 'Europe/Paris',
@@ -53,7 +54,16 @@
               center: 'title',
               end: 'timeGridWeek,dayGridMonth'
           },
-          events: {{data|raw}}
+          //Envoie des données events
+          events: {{data|raw}},
+          //Activation de modification en direct sur l'interface
+          editable: true,
+          eventResizableFromStart: true
+        });
+
+
+        calendar.on('eventChange', (e) =>{
+            console.log(e)
         });
         calendar.render();
       });
