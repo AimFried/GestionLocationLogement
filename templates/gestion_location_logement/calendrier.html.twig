@@ -2,7 +2,11 @@
 
 {% block title %}Calendrier location{% endblock %}
 
+
 {% block body %}
+{#JS FullCalendar#}
+<script src="/fullcalendar/lib/main.min.js"></script>
+<link rel="stylesheet" href="/fullcalendar/lib/main.min.css">
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-4">
@@ -29,10 +33,30 @@
                 </div>
             </div>
             <div class="col-md-8">
-            
+                <div id="calendrier">
+                </div>
             </div>
         </div>
     </div>
+{% endblock %}
+
+{% block javascripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var calendarEl = document.getElementById('calendrier');
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+          initialView: 'dayGridMonth',
+          locale: 'fr',
+          timeZone: 'Europe/Paris',
+          headerToolbar: {
+              start: 'prev,next today',
+              center: 'title',
+              end: 'timeGridWeek,dayGridMonth'
+          }
+        });
+        calendar.render();
+      });
+</script>
 {% endblock %}
 
 
