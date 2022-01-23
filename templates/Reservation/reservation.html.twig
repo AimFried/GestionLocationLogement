@@ -1,0 +1,65 @@
+{% extends 'base.html.twig' %}
+
+{# Compte le nombres de locataires #}
+{% set nbrReservations = 0 %}
+{% for uneReservations in reservations %}
+	{% set nbrReservations = nbrReservations + 1 %}
+{% endfor %}
+
+{% block title %}{{nbrReservations}} locataire(s){% endblock %}
+
+{% block body %}
+    <div class="row">
+		<div class="col-md-12">
+			<table class="table">
+				<thead>
+					<tr>
+						<th><strong>Logement</strong></th>
+						<th><strong>Locataire</strong></th>
+						<th><strong>Date Début</strong></th>
+						<th><strong>Date Fin</strong></th>
+						<th><strong>Prix Nuit</strong></th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+				{# Afficher tous les réservations à venir #}
+				{% for uneReservations in reservations %}
+					<tr>
+						<th scope="row">{{uneReservations.Logements.Nom}}</th>
+						<th scope="row">{{uneReservations.locataires.Nom}}</th>
+						<th scope="row">{{uneReservations.DateDebut}}</th>
+						<th scope="row">{{uneReservations.DateFin}}</th>
+                        <th scope="row">{{uneReservations.PrixNuit}}</th>
+				
+						<th scope="row">
+							<button class="btn btn-sm btn-outline-secondary me-2" type="button"><a href="{{path('reservation_edit', {id:uneReservations.id})}}">Modifier</a></button>
+							<button class="btn btn-sm btn-outline-secondary me-2" type="button" ><a href="{{path('profile_locataire', {id:uneReservations.id})}}">Détails</a></button>
+
+							<form class="btn btn-sm btn-outline-secondary me-2" method="post" action="{{ path('reservation_delete', {'id': uneReservations.id}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
+								<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ uneReservations.id) }}">
+                                <button class="btn">Delete</button>
+							</form>
+
+
+                    {% endfor %}
+
+						</th>
+					</tr>
+				{% if nbrReservations == 0 %}
+					<tr>
+						<th scope="row">vide</th>
+						<th scope="row">vide</th>
+						<th scope="row">vide</th>
+						<th scope="row">vide</th>
+						<th scope="row">vide</th>
+						<th scope="row">
+							<button class="btn btn-sm btn-outline-secondary me-2" type="button">Ajouter</button>
+						</th>
+					</tr>
+				{% endif %}
+				</tbody>
+			</table>
+		</div>
+	</div>
+{% endblock %}

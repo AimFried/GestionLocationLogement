@@ -17,7 +17,7 @@ class LogementController extends AbstractController
     {
         $logements = $logementRepository->findAll();
 
-        return $this->render('gestion_location_logement/listeLogements.html.twig', 
+        return $this->render('Logement/listeLogements.html.twig', 
         ['logements' => $logements,]);
     }
     
@@ -27,7 +27,7 @@ class LogementController extends AbstractController
         $logements = $logementRepository->find($id);
         
 
-        return $this->render('gestion_location_logement/profileLogement.html.twig', 
+        return $this->render('Logement/profileLogement.html.twig', 
         ['logements' => $logements,]);
     }
 }
