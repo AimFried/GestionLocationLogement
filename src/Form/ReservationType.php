@@ -3,9 +3,12 @@
 namespace App\Form;
 
 use App\Entity\RESERVATION;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use App\Entity\LOCATAIRE;
+use App\Entity\LOGEMENT;
 
 class ReservationType extends AbstractType
 {
@@ -19,8 +22,18 @@ class ReservationType extends AbstractType
             ->add('NbrAdulte')
             ->add('NbrEnfant')
             ->add('EtatContrat')
-            ->add('Locataires')
-            ->add('Logements')
+            ->add('Locataires', EntityType::class, array(
+                'class' => LOCATAIRE::class,
+                'choice_label' => 'Nom',
+                'multiple' => false,
+                'expanded' => false,
+            ))
+            ->add('Logements', EntityType::class, array(
+                'class' => LOGEMENT::class,
+                'choice_label' => 'Nom',
+                'multiple' => false,
+                'expanded' => false,
+            ))
         ;
     }
 

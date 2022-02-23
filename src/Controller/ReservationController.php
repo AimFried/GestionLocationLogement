@@ -45,7 +45,7 @@ class ReservationController extends AbstractController
         ]);
     }
 
-    #[Route('/reservation/{id}/modifier', name: 'reservation_modifier')]
+    #[Route('/reservation/modifier/{id}', name: 'reservation_modifier')]
     public function modifier(Request $request,ManagerRegistry $doctrine, RESERVATION $reservation): Response
     {
         $entityManager = $doctrine->getManager();
@@ -64,7 +64,7 @@ class ReservationController extends AbstractController
         ]);
     }
 
-    #[Route('/reservation/{id}/supprimer', name: 'reservation_supprimer')]
+    #[Route('/reservation/supprimer/{id}', name: 'reservation_supprimer')]
     public function supprimer(Request $request,ManagerRegistry $doctrine, RESERVATION $reservation): Response
     {
         $entityManager = $doctrine->getManager();
