@@ -25,7 +25,7 @@ class LocataireController extends AbstractController
         ]);
     }
 
-    #[Route('/locataire/{id}', name: 'locataire_profile')]
+    #[Route('/locataire/profile/{id}', name: 'locataire_profile')]
     public function profile(RESERVATIONRepository $reservationRepository, LOCATAIRERepository $locataireRepository, $id): Response
     {
         $reservations = $reservationRepository->find($id);
@@ -58,7 +58,7 @@ class LocataireController extends AbstractController
         ]);
     }
 
-    #[Route('/locataire/{id}/modifier', name: 'locataire_modifier')]
+    #[Route('/locataire/modifier/{id}', name: 'locataire_modifier')]
     public function modifier(Request $request,ManagerRegistry $doctrine, LOCATAIRE $locataire): Response
     {
         $entityManager = $doctrine->getManager();
@@ -78,7 +78,7 @@ class LocataireController extends AbstractController
         ]);
     }
 
-    #[Route('/locataire/{id}/supprimer', name: 'locataire_supprimer')]
+    #[Route('/locataire/supprimer{id}', name: 'locataire_supprimer')]
     public function supprimer(RESERVATIONRepository $reservationRepository, LOCATAIRERepository $locataireRepository,Request $request,ManagerRegistry $doctrine, LOCATAIRE $locataire): Response
     {
         $reservations = $reservationRepository->findAll();
@@ -96,8 +96,8 @@ class LocataireController extends AbstractController
                 return $this->redirectToRoute('locataire');
             }
 
-        return $this->render('locataire/listeLocataires.html.twig', [
-            'reservations' => $reservations,'locataires' => $locataires,
+        return $this->render('locataire/supprimer.html.twig', [
+            'form' => $form->createView(),
         ]);
     }
 }

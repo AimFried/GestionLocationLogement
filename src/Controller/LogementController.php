@@ -27,7 +27,7 @@ class LogementController extends AbstractController
         ]);
     }
 
-    #[Route('/logement/{id}', name: 'logement_profile')]
+    #[Route('/logement/profile/{id}', name: 'logement_profile')]
     public function profile(RESERVATIONRepository $reservationRepository, LOCATAIRERepository $locataireRepository, LOGEMENTRepository $logementRepository,$id): Response
     {
         $reservations = $reservationRepository->find($id);
@@ -60,7 +60,7 @@ class LogementController extends AbstractController
         ]);
     }
 
-    #[Route('/logement/{id}/modifier', name: 'logement_modifier')]
+    #[Route('/logement/modifier/{id}', name: 'logement_modifier')]
     public function modifier(Request $request,ManagerRegistry $doctrine, LOGEMENT $logement): Response
     {
         $entityManager = $doctrine->getManager();
@@ -79,7 +79,7 @@ class LogementController extends AbstractController
         ]);
     }
 
-    #[Route('/logement/{id}/supprimer', name: 'logement_supprimer')]
+    #[Route('/logement/supprimer/{id}', name: 'logement_supprimer')]
     public function supprimer(Request $request,ManagerRegistry $doctrine, LOGEMENT $logement): Response
     {
         $entityManager = $doctrine->getManager();
