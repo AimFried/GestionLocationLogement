@@ -2,11 +2,33 @@
 
 {% block title %}Calendrier location{% endblock %}
 
-
 {% block body %}
-{#JS FullCalendar#}
-<script src="/fullcalendar/lib/main.min.js"></script>
-<link rel="stylesheet" href="/fullcalendar/lib/main.min.css">
+<script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var calendarEl = document.getElementById('calendrier');
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+            //Paramétre du calendrier
+            initialView: 'dayGridMonth',
+            locale: 'fr',
+            timeZone: 'Europe/Paris',
+            headerToolbar: {
+                start: 'prev,next today',
+                center: 'title',
+                end: 'timeGridWeek,dayGridMonth'
+            },
+            //Envoie des données events
+            events: {{data|raw}},
+            //Activation de modification en direct sur l'interface
+            editable: true,
+            eventResizableFromStart: true
+            });
+
+            calendar.on('eventChange', (e) =>{
+                console.log(e)
+            });
+            calendar.render();
+        });
+    </script>
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-4">
@@ -39,35 +61,3 @@
         </div>
     </div>
 {% endblock %}
-
-{% block javascripts %}
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        var calendarEl = document.getElementById('calendrier');
-        var calendar = new FullCalendar.Calendar(calendarEl, {
-          //Paramétre du calendrier
-          initialView: 'dayGridMonth',
-          locale: 'fr',
-          timeZone: 'Europe/Paris',
-          headerToolbar: {
-              start: 'prev,next today',
-              center: 'title',
-              end: 'timeGridWeek,dayGridMonth'
-          },
-          //Envoie des données events
-          events: {{data|raw}},
-          //Activation de modification en direct sur l'interface
-          editable: true,
-          eventResizableFromStart: true
-        });
-
-
-        calendar.on('eventChange', (e) =>{
-            console.log(e)
-        });
-        calendar.render();
-      });
-</script>
-{% endblock %}
-
-

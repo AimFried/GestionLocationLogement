@@ -54,15 +54,8 @@
 						{% endif %}		
 
 						<th scope="row">
-							<button class="btn btn-sm btn-outline-secondary me-2" type="button">Modifier</button>
-							<button class="btn btn-sm btn-outline-secondary me-2" type="button"><a href="{{path('locataire_delete', {id:unLocataires.id})}}">Supprimer</a></button>
-							<button class="btn btn-sm btn-outline-secondary me-2" type="button" ><a href="{{path('profile_locataire', {id:unLocataires.id})}}">Détails</a></button>
-
-							<form method="post" action="{{ path('locataire_delete', {'id': unLocataires.id}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
-								<button class="btn">Delete</button>
-							</form>
-
-
+							<button class="btn btn-sm btn-outline-secondary me-2" type="button"><a href="{{path('locataire_modifier', {id:unLocataires.id})}}">Modifier</a></button>
+							<button class="btn btn-sm btn-outline-secondary me-2" type="button" ><a href="{{path('locataire_profile', {id:unLocataires.id})}}">Détails</a></button>
 						</th>
 					</tr>
 				{% endfor %}
@@ -74,10 +67,16 @@
 						<th scope="row">vide</th>
 						<th scope="row">vide</th>
 						<th scope="row">
-							<button class="btn btn-sm btn-outline-secondary me-2" type="button">Ajouter</button>
+							<button class="btn btn-sm btn-outline-secondary me-2" type="button"><a href="">Ajouter</a></button>
 						</th>
 					</tr>
 				{% endif %}
+					<th>
+						<th></th>
+						<th></th>
+						<th></th>
+						<th></th>
+						<th><button class="btn btn-sm btn-outline-secondary me-2" type="button"><a href="/locataire/ajouter">Ajouter</a></button></th>
 				</tbody>
 			</table>
 		</div>

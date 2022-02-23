@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{locataires.Nom}} locataire{% endblock %}
+{% block title %}locataire{% endblock %}
 
 {% block body %}
 	<div class="container-fluid">
@@ -82,7 +82,7 @@
 										<tbody>
 										{% for uneReservations in locataires.reservations %}
 											<tr>
-												<th scope="row"><a href="{{path('profile_logement', {id:uneReservations.logements.id})}}">{{uneReservations.logements.Nom}}</a></th>
+												<th scope="row"><a href="">{{uneReservations.logements.Nom}}</a></th>
 												<th scope="row">{{uneReservations.DateDebut}}</th>
 												<th scope="row">{{uneReservations.DateFin}}</th>
 												<th scope="row">{{uneReservations.NbrAdulte}}</th>
@@ -94,7 +94,8 @@
 										{% endfor %}
 										</tbody>
 									</table>
-										
+									<a href="{{ path('locataire_modifier', {'id': locataires.id}) }}">Modifier</a>
+									<a href="{{ path('locataire_supprimer', {'id': locataires.id}) }}">Supprimer</a>		
 										
 								
 								</p>

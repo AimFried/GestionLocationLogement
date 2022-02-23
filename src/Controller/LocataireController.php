@@ -3,49 +3,101 @@
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Entity\LOCATAIRE;
-use App\Entity\RESERVATION;
-use App\Repository\CalendarRepository;
-use App\Repository\LOGEMENTRepository;
-use App\Repository\LOCATAIRERepository;
+use Symfony\Component\HttpFoundation\Request;
+use Doctrine\Persistence\ManagerRegistry;
 use App\Repository\RESERVATIONRepository;
+use App\Repository\LOCATAIRERepository;
+use App\Form\LocataireType;
+use App\Entity\LOCATAIRE;
 
 class LocataireController extends AbstractController
 {
-    #[Route('/locataire', name: 'liste_locataires', methods: ['GET'])]
-    public function listeLocataire(LOCATAIRERepository $locataireRepository,RESERVATIONRepository $reservationRepository): Response
+    #[Route('/locataire', name: 'locataire')]
+    public function listeLocataire(RESERVATIONRepository $reservationRepository, LOCATAIRERepository $locataireRepository): Response
     {
-        $locataires = $locataireRepository->findAll();
         $reservations = $reservationRepository->findAll();
+        $locataires = $locataireRepository->findAll();
 
-        return $this->render('Locataire/listeLocataires.html.twig', 
-        ['locataires' => $locataires,'reservations' => $reservations,]);
+        return $this->render('locataire/listeLocataires.html.twig', [
+            'reservations' => $reservations,'locataires' => $locataires,
+        ]);
     }
 
-    #[Route('/locataire/profile/{id}', name: 'profile_locataire')]
-    public function profileLocataire(LOCATAIRERepository $locataireRepository,$id): Response
+    #[Route('/locataire/{id}', name: 'locataire_profile')]
+    public function profile(RESERVATIONRepository $reservationRepository, LOCATAIRERepository $locataireRepository, $id): Response
     {
+        $reservations = $reservationRepository->find($id);
         $locataires = $locataireRepository->find($id);
-    
-        return $this->render('Locataire/profileLocataire.html.twig', 
-        ['locataires' => $locataires,]);
+
+        return $this->render('locataire/profileLocataire.html.twig', [
+            'reservations' => $reservations,'locataires' => $locataires,
+        ]);
     }
 
-    #[Route('/locataire/{id}', name: 'locataire_delete', methods: ['GET', 'POST'])]
-    public function delete(LOCATAIRERepository $locataireRepository,RESERVATION $reservation, EntityManagerInterface $entityManager, $id): Response
+    #[Route('/locataire/ajouter', name: 'locataire_ajouter')]
+    public function ajouter(Request $request,ManagerRegistry $doctrine): Response
     {
-            $locataires = $locataireRepository->find($id);
-            $locataires->removeReservation($reservation);
-            $entityManager->remove($locataires);
+        $entityManager = $doctrine->getManager();
 
-            $entityManager->flush();
+        $locataire = new LOCATAIRE();
 
-            $locataires = $locataireRepository->findAll();
+        $form = $this->createForm(LocataireType::class, $locataire);
 
-        return $this->redirectToRoute('liste_locataires', ['locataires' => $locataires,], Response::HTTP_SEE_OTHER);
+        $form->handleRequest($request);
+            if ($form->isSubmitted() && $form->isValid()){
+                $entityManager->persist($locataire);
+                $entityManager->flush();
+               
+                return $this->redirectToRoute('locataire');
+            }
+
+        return $this->render('locataire/ajouter.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
+
+    #[Route('/locataire/{id}/modifier', name: 'locataire_modifier')]
+    public function modifier(Request $request,ManagerRegistry $doctrine, LOCATAIRE $locataire): Response
+    {
+        $entityManager = $doctrine->getManager();
+
+        $form = $this->createForm(LocataireType::class, $locataire);
+
+        $form->handleRequest($request);
+            if ($form->isSubmitted() && $form->isValid()){
+                $entityManager->persist($locataire);
+                $entityManager->flush();
+               
+                return $this->redirectToRoute('locataire');
+            }
+
+        return $this->render('locataire/modifier.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
+
+    #[Route('/locataire/{id}/supprimer', name: 'locataire_supprimer')]
+    public function supprimer(RESERVATIONRepository $reservationRepository, LOCATAIRERepository $locataireRepository,Request $request,ManagerRegistry $doctrine, LOCATAIRE $locataire): Response
+    {
+        $reservations = $reservationRepository->findAll();
+        $locataires = $locataireRepository->findAll();
+
+        $entityManager = $doctrine->getManager();
+
+        $form = $this->createForm(LocataireType::class, $locataire);
+
+        $form->handleRequest($request);
+            if ($form->isSubmitted() && $form->isValid()){
+                $entityManager->remove($locataire);
+                $entityManager->flush();
+               
+                return $this->redirectToRoute('locataire');
+            }
+
+        return $this->render('locataire/listeLocataires.html.twig', [
+            'reservations' => $reservations,'locataires' => $locataires,
+        ]);
     }
 }
