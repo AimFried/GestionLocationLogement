@@ -27,8 +27,8 @@
 				{# Afficher tous les historiques #}
 				{% for uneReservations in reservations %}
 					<tr>
-                    	<th scope="row"><a href="{{path('profile_logement', {id:uneReservations.logements.id})}}">{{uneReservations.logements.Nom}}</a></th>
-						<th scope="row"><a href="{{path('profile_locataire', {id:uneReservations.locataires.id})}}">{{uneReservations.Locataires.Nom}}</a></th>
+                    	<th scope="row"><a href="{{path('logement_profile', {id:uneReservations.logements.id})}}">{{uneReservations.logements.Nom}}</a></th>
+						<th scope="row"><a href="{{path('locataire_profile', {id:uneReservations.locataires.id})}}">{{uneReservations.Locataires.Nom}}</a></th>
                         <th scope="row">{{uneReservations.DateDebut}}</th>
                         <th scope="row">{{uneReservations.DateFin}}</th>
                         <th scope="row">{{uneReservations.PrixNuit}}</th>

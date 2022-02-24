@@ -26,15 +26,15 @@
 				{# Afficher tous les réservations à venir #}
 				{% for uneReservations in reservations %}
 					<tr>
-						<th scope="row">{{uneReservations.Logements.Nom}}</th>
-						<th scope="row">{{uneReservations.locataires.Nom}}</th>
+						<th scope="row"><a href="{{path('logement_profile', {id:uneReservations.logements.id})}}">{{uneReservations.Logements.Nom}}</a></th>
+						<th scope="row"><a href="">{{uneReservations.locataires.Nom}}</a></th>
 						<th scope="row">{{uneReservations.DateDebut}}</th>
 						<th scope="row">{{uneReservations.DateFin}}</th>
                         <th scope="row">{{uneReservations.PrixNuit}}</th>
 				
 						<th scope="row">
 							<button class="btn btn-sm btn-outline-secondary me-2" type="button"><a href="{{path('reservation_modifier', {id:uneReservations.id})}}">Modifier</a></button>
-							<button class="btn btn-sm btn-outline-secondary me-2" type="button" ><a href="">Détails</a></button>
+							<button class="btn btn-sm btn-outline-secondary me-2" type="button" ><a href="{{path('reservation_supprimer', {id:uneReservations.id})}}">Supprimer</a></button>
 
 						
                     {% endfor %}

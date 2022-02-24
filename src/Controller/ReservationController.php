@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Calendar;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -24,6 +25,16 @@ class ReservationController extends AbstractController
         ]);
     }
 
+    #[Route('/historique', name: 'historique')]
+    public function historique(RESERVATIONRepository $reservationRepository): Response
+    {
+        $reservations = $reservationRepository->findAll();
+        
+        return $this->render('reservation/historique.html.twig', [
+            'reservations' => $reservations,
+        ]);
+    }
+
     #[Route('/reservation/ajouter', name: 'reservation_ajouter')]
     public function ajouter(Request $request,ManagerRegistry $doctrine): Response
     {
@@ -37,10 +48,26 @@ class ReservationController extends AbstractController
             if ($form->isSubmitted() && $form->isValid()){
                 $entityManager->persist($reservation);
                 $entityManager->flush();
+
+                $event = new Calendar();
+
+                $event->setTitle($reservation->getLocataires()->getNom());
+                $event->setStart(new \DateTime($reservation->getDateDebut()));
+                $event->setEnd(new \DateTime($reservation->getDateFin()));
+                $event->setDescription("Location");
+                $event->setBackgroundColor("blue");
+                $event->setBorderColor("blue");
+                $event->setTextColor("white");
+                $event->setAllday("false");
+
+                $entityManager->persist($event);
+                $entityManager->flush();
+
                
                 return $this->redirectToRoute('reservation');
             }
-        return $this->render('Reservation/ajouter.html.twig', [
+   
+            return $this->render('Reservation/ajouter.html.twig', [
             'form' => $form->createView(),
         ]);
     }
