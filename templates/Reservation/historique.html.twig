@@ -6,7 +6,11 @@
 	{% set nbrHistoriques = nbrHistoriques + 1 %}
 {% endfor %}
 
-{% block title %}Historique de vos locations{% endblock %}
+{% block title %}Historique des réservation(s){% endblock %}
+
+{% block header %}
+	<center><h3>{{nbrHistoriques}} réservation(s)</h3></center>
+{% endblock %}
 
 {% block body %}
     <div class="row">

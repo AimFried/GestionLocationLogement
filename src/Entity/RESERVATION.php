@@ -40,10 +40,10 @@ class RESERVATION
 
     #[ORM\ManyToOne(targetEntity: LOGEMENT::class, inversedBy: 'Reservations')]
     #[ORM\JoinColumn(nullable: false)]
-    private $Logements;
+    public $Logements;
 
     #[ORM\OneToOne(inversedBy: 'Reservation', targetEntity: Calendar::class, cascade: ['persist', 'remove'])]
-    private $Calendrier;
+    public $Calendrier;
 
     public function getId(): ?int
     {

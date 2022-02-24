@@ -2,11 +2,15 @@
 
 {# Compte le nombres de locataires #}
 {% set nbrLocataires = 0 %}
-{% for uneReservations in reservations %}
+{% for unLocataire in locataires %}
 	{% set nbrLocataires = nbrLocataires + 1 %}
 {% endfor %}
 
-{% block title %}{{nbrLocataires}} locataire(s){% endblock %}
+{% block title %}Liste des locataire(s){% endblock %}
+
+{% block header %}
+	<center><h3>{{nbrLocataires}} locataire(s)</h3></center>
+{% endblock %}
 
 {% block body %}
     <div class="row">

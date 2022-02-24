@@ -6,7 +6,11 @@
 	{% set nbrReservations = nbrReservations + 1 %}
 {% endfor %}
 
-{% block title %}{{nbrReservations}} locataire(s){% endblock %}
+{% block title %}Liste des réservation(s){% endblock %}
+
+{% block header %}
+	<center><h3>{{nbrReservations}} réservation(s)</h3></center>
+{% endblock %}
 
 {% block body %}
     <div class="row">

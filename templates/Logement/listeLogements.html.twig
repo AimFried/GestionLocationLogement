@@ -6,7 +6,11 @@
 	{% set nbrLogements = nbrLogements + 1 %}
 {% endfor %}
 
-{% block title %}{{nbrLogements}} logement(s){% endblock %}
+{% block title %}Liste des logement(s){% endblock %}
+
+{% block header %}
+	<center><h3>{{nbrLogements}} logement(s)</h3></center>
+{% endblock %}
 
 {% block body %}
     <div class="row">

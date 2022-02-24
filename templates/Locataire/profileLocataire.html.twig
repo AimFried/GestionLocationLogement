@@ -83,8 +83,8 @@
 										{% for uneReservations in locataires.reservations %}
 											<tr>
 												<th scope="row"><a href="">{{uneReservations.logements.Nom}}</a></th>
-												<th scope="row">{{uneReservations.DateDebut}}</th>
-												<th scope="row">{{uneReservations.DateFin}}</th>
+												<th scope="row">{{uneReservations.DateDebut|date("m/d/Y")}}</th>
+												<th scope="row">{{uneReservations.DateFin|date("m/d/Y")}}</th>
 												<th scope="row">{{uneReservations.NbrAdulte}}</th>
 												<th scope="row">{{uneReservations.NbrEnfant}}</th>
 												<th scope="row">{{uneReservations.PrixNuit}}</th>

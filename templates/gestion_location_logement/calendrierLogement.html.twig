@@ -1,0 +1,121 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Calendrier | {{logement.Nom}}{% endblock %}
+
+{% block body %}
+<script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var calendarEl = document.getElementById('calendrier');
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+            //Paramétre du calendrier
+            initialView: 'dayGridMonth',
+            locale: 'fr',
+            timeZone: 'Europe/Paris',
+            headerToolbar: {
+                start: 'prev,next today',
+                center: 'title',
+                end: 'timeGridWeek,dayGridMonth'
+            },
+            //Envoie des données events
+            events: {{data|raw}},
+            //Activation de modification en direct sur l'interface
+            editable: true,
+            eventResizableFromStart: true
+            });
+
+            calendar.on('eventChange', (e) =>{
+                console.log(e)
+            });
+            calendar.render();
+        });
+    </script>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="card bg-default">
+                    <h3 class="card-header">
+                        <center>Choisir un logement</center>
+                    </h3>
+                    <div class="card-body">
+                        <p class="card-text">
+                            <select class="form-select" size="8" aria-label="size 3 select example">
+                                {% for unLogements in logements %}
+                                <option onClick="window.open('https://127.0.0.1:8000/calendrier/logement/'+{{unLogements.id}});">{{unLogements.Nom}}</option>
+                                {% endfor %}
+                            </select>
+                        </p>
+                        <div class="card-footer">
+                        <center><h3>Informations</h3></center>
+                        <hr></hr>
+                        <table>
+                            <tr>
+                                <th style="width:25%;">
+                                    <strong>Nom : </strong>
+                                </th>
+                                <th style="width:50%;">
+                                    <input class="form-control form-control-sm" type="text" value="{{logement.Nom}}" aria-label="Disabled input example" disabled readonly>
+                                </th>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <strong>Adresse : </strong>
+                                </th>
+                                <th>
+                                    <input class="form-control form-control-sm" type="text" value="{{logement.Adresse}}" aria-label="Disabled input example" disabled readonly>
+                                </th>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <strong>Ville : </strong>
+                                </th>
+                                <th>
+                                    <input class="form-control form-control-sm" type="text" value="{{logement.Ville}}" aria-label="Disabled input example" disabled readonly>
+                                </th>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <strong>Code Postal : </strong>
+                                </th>
+                                <th>
+                                    <input class="form-control form-control-sm" type="text" value="{{logement.CodePostal}}" aria-label="Disabled input example" disabled readonly>
+                                </th>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <strong>Pers. Max : </strong>
+                                </th>
+                                <th>
+                                    <input class="form-control form-control-sm" type="text" value="{{logement.PersMax}}" aria-label="Disabled input example" disabled readonly>
+                                </th>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <strong>Descritpion : </strong>
+                                </th>
+                                <th>
+                                    <input class="form-control form-control-sm" type="text" value="{{logement.Description}}" aria-label="Disabled input example" disabled readonly>
+                                </th>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <strong>Etat : </strong>
+                                </th>
+                                <th>
+                                    <input class="form-control form-control-sm" type="text" value="{{logement.Etat}}" aria-label="Disabled input example" disabled readonly>
+                                </th>
+                            </tr>
+                        </table>
+                    </div>
+                    </div>
+                    <div class="card-footer">
+                        <center><button class="btn btn-sm btn-outline-secondary me-2"><a href="{{path('logement_profile', {id:logement.id})}}">Détail</a></button></center>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-9">
+                <div id="calendrier">
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

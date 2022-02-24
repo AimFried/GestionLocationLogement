@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Calendrier location{% endblock %}
+{% block title %}Calendrier Location{% endblock %}
 
 {% block body %}
 <script>
@@ -31,30 +31,31 @@
     </script>
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <div class="card bg-default">
-                    <h5 class="card-header">
-                        Calendrier du logement
-                    </h5>
+                    <h3 class="card-header">
+                        <center>Choisir un logement</center>
+                    </h3>
                     <div class="card-body">
                         <p class="card-text">
                             <select class="form-select" size="5" aria-label="size 3 select example">
                                 {% for unLogements in logements %}
-                                <option value="1">{{unLogements.Nom}}</option>
+                                <option onClick="window.open('https://127.0.0.1:8000/calendrier/logement/'+{{unLogements.id}});">{{unLogements.Nom}}</option>
                                 {% endfor %}
                             </select>
                         </p>
                         <div class="card-footer">
-                        <strong>Ville :</strong>
-                        <strong>Pers. Max : :</strong>
+                            Statistique
                     </div>
                     </div>
                     <div class="card-footer">
-                        Information complémentaire
+                        <button><a href="">listes des réservations</a></button>
+                        <button><a href="">Listes des logements</a></button>
+                        <button><a href="">Listes des locataires</a></button>
                     </div>
                 </div>
             </div>
-            <div class="col-md-8">
+            <div class="col-md-9">
                 <div id="calendrier">
                 </div>
             </div>
