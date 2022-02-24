@@ -29,8 +29,8 @@
 					<tr>
                     	<th scope="row"><a href="{{path('logement_profile', {id:uneReservations.logements.id})}}">{{uneReservations.logements.Nom}}</a></th>
 						<th scope="row"><a href="{{path('locataire_profile', {id:uneReservations.locataires.id})}}">{{uneReservations.Locataires.Nom}}</a></th>
-                        <th scope="row">{{uneReservations.DateDebut}}</th>
-                        <th scope="row">{{uneReservations.DateFin}}</th>
+                        <th scope="row">{{uneReservations.DateDebut|date("m/d/Y")}}</th>
+                        <th scope="row">{{uneReservations.DateFin|date("m/d/Y")}}</th>
                         <th scope="row">{{uneReservations.PrixNuit}}</th>
                         <th scope="row">{{uneReservations.PrixTotal}}</th>
                         <th scope="row">

@@ -81,9 +81,6 @@ class LocataireController extends AbstractController
     #[Route('/locataire/supprimer{id}', name: 'locataire_supprimer')]
     public function supprimer(RESERVATIONRepository $reservationRepository, LOCATAIRERepository $locataireRepository,Request $request,ManagerRegistry $doctrine, LOCATAIRE $locataire): Response
     {
-        $reservations = $reservationRepository->findAll();
-        $locataires = $locataireRepository->findAll();
-
         $entityManager = $doctrine->getManager();
 
         $form = $this->createForm(LocataireType::class, $locataire);

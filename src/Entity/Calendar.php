@@ -37,6 +37,9 @@ class Calendar
     #[ORM\Column(type: 'string', length: 7)]
     private $text_color;
 
+    #[ORM\OneToOne(mappedBy: 'Calendrier', targetEntity: RESERVATION::class, cascade: ['persist', 'remove'])]
+    private $Reservation;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -134,6 +137,28 @@ class Calendar
     public function setTextColor(string $text_color): self
     {
         $this->text_color = $text_color;
+
+        return $this;
+    }
+
+    public function getReservation(): ?RESERVATION
+    {
+        return $this->Reservation;
+    }
+
+    public function setReservation(?RESERVATION $Reservation): self
+    {
+        // unset the owning side of the relation if necessary
+        if ($Reservation === null && $this->Reservation !== null) {
+            $this->Reservation->setCalendrier(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($Reservation !== null && $Reservation->getCalendrier() !== $this) {
+            $Reservation->setCalendrier($this);
+        }
+
+        $this->Reservation = $Reservation;
 
         return $this;
     }

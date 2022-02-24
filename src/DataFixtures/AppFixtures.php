@@ -7,6 +7,7 @@ use Doctrine\Persistence\ObjectManager;
 use App\Entity\LOGEMENT;
 use App\Entity\LOCATAIRE;
 use App\Entity\RESERVATION;
+use App\Entity\Calendar;
 
 class AppFixtures extends Fixture
 {

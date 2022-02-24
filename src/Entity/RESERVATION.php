@@ -13,10 +13,10 @@ class RESERVATION
     #[ORM\Column(type: 'integer')]
     private $id;
 
-    #[ORM\Column(type: 'string', length: 255)]
+    #[ORM\Column(type: 'datetime')]
     private $DateDebut;
 
-    #[ORM\Column(type: 'string', length: 255)]
+    #[ORM\Column(type: 'datetime')]
     private $DateFin;
 
     #[ORM\Column(type: 'float')]
@@ -42,29 +42,33 @@ class RESERVATION
     #[ORM\JoinColumn(nullable: false)]
     private $Logements;
 
+    #[ORM\OneToOne(inversedBy: 'Reservation', targetEntity: Calendar::class, cascade: ['persist', 'remove'])]
+    private $Calendrier;
+
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getDateDebut(): ?string
+    public function getDateDebut(): ?\DateTimeInterface
     {
         return $this->DateDebut;
     }
 
-    public function setDateDebut(string $DateDebut): self
+    public function setDateDebut(\DateTimeInterface $DateDebut): self
     {
         $this->DateDebut = $DateDebut;
 
         return $this;
     }
 
-    public function getDateFin(): ?string
+    public function getDateFin(): ?\DateTimeInterface
     {
         return $this->DateFin;
     }
 
-    public function setDateFin(string $DateFin): self
+
+    public function setDateFin(\DateTimeInterface $DateFin): self
     {
         $this->DateFin = $DateFin;
 
@@ -151,6 +155,25 @@ class RESERVATION
     public function setLogements(?LOGEMENT $Logements): self
     {
         $this->Logements = $Logements;
+
+        return $this;
+    }
+
+    public function getCalendrier(): ?Calendar
+    {
+        return $this->Calendrier;
+    }
+
+    public function setCalendrier(?Calendar $Calendrier): self
+    {
+        $this->Calendrier = $Calendrier;
+
+        return $this;
+    }
+
+    public function toString(\DateTimeInterface $date): self
+    {
+        $date->format('Y-m-d H:i:s');
 
         return $this;
     }

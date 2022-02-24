@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Entity\Calendar;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -11,6 +10,7 @@ use Doctrine\Persistence\ManagerRegistry;
 use App\Repository\RESERVATIONRepository;
 use App\Form\ReservationType;
 use App\Entity\RESERVATION;
+use App\Entity\Calendar;
 
 
 class ReservationController extends AbstractController
@@ -46,23 +46,23 @@ class ReservationController extends AbstractController
 
         $form->handleRequest($request);
             if ($form->isSubmitted() && $form->isValid()){
-                $entityManager->persist($reservation);
-                $entityManager->flush();
-
+               
                 $event = new Calendar();
-
+                
                 $event->setTitle($reservation->getLocataires()->getNom());
-                $event->setStart(new \DateTime($reservation->getDateDebut()));
-                $event->setEnd(new \DateTime($reservation->getDateFin()));
+                $event->setStart($reservation->getDateDebut());
+                $event->setEnd($reservation->getDateFin());
                 $event->setDescription("Location");
                 $event->setBackgroundColor("blue");
                 $event->setBorderColor("blue");
                 $event->setTextColor("white");
                 $event->setAllday("false");
+                
+                $reservation->setCalendrier($event);
 
                 $entityManager->persist($event);
+                $entityManager->persist($reservation);
                 $entityManager->flush();
-
                
                 return $this->redirectToRoute('reservation');
             }
@@ -81,6 +81,21 @@ class ReservationController extends AbstractController
 
         $form->handleRequest($request);
             if ($form->isSubmitted() && $form->isValid()){
+                
+                $event = $reservation->getCalendrier();
+
+                $event->setTitle($reservation->getLocataires()->getNom());
+                $event->setStart($reservation->getDateDebut());
+                $event->setEnd($reservation->getDateFin());
+                $event->setDescription("Location");
+                $event->setBackgroundColor("blue");
+                $event->setBorderColor("blue");
+                $event->setTextColor("white");
+                $event->setAllday("false");
+                
+                $reservation->setCalendrier($event);
+
+                $entityManager->persist($event);
                 $entityManager->persist($reservation);
                 $entityManager->flush();
                
@@ -100,6 +115,8 @@ class ReservationController extends AbstractController
 
         $form->handleRequest($request);
             if ($form->isSubmitted() && $form->isValid()){
+                              
+                $entityManager->remove($reservation->getCalendrier());
                 $entityManager->remove($reservation);
                 $entityManager->flush();
                

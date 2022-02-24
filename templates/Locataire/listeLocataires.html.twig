@@ -39,7 +39,7 @@
 							{% if uneReservations.locataires.id == unLocataires.id %}
 
 								{% if lastLoc == 0 %}
-								<th scope="row">{{uneReservations.DateDebut}}</th>
+								<th scope="row">{{uneReservations.DateDebut|date("m/d/Y")}}</th>
 								{% set lastLocEtat = lastLocEtat + 1 %}
 								{% endif %}
 
