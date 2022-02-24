@@ -1,11 +1,67 @@
 {% extends 'base.html.twig' %}
 
+{% block title %}Logement | Ajouter{% endblock %}
 
 {% block body %}
 <div style="margin-top: 80px;">
-    {{ form_start(form) }}
-    {{ form_rest(form) }}
-    <button type="submit">Ajouter</button>
-    {{ form_end(form) }}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+                <center><h2>Ajouter un logement</h2><center>
+                <br>
+                {{ form_start(form) }}
+                <div class="card text-center">
+                    <div class="card-header">
+                        <h4>Information</h4>
+                    </div>
+                    <div class="card-body">
+                    <center>
+                        <table>
+                            <tr>
+                                <th>
+                                    {{form_row(form.Nom)}}
+                                    {{form_row(form.PersMax)}}
+                                    {{form_row(form.Etat)}}
+                                </th>
+                                <th>
+                            </th>
+                                <th style="width: 75%;">
+                                    {{form_row(form.Description)}}
+                                </th>
+                            </tr>
+                        </table>
+                    </center>
+                    </div>
+                </div>
+                <div class="card text-center">
+                    <div class="card-header">
+                        <h4>Lieu</h4>
+                    </div>
+                    <div class="card-body">
+                    <center>
+                        <table style="width: 70%;">
+                            <tr>
+                                <th>
+                                    {{form_row(form.Adresse)}}
+                                </th>
+                                <th>
+                                    {{form_row(form.Ville)}}
+                                </th>
+                                <th>
+                                    {{form_row(form.CodePostal)}}
+                                </th>
+                            </tr>
+                        </table>
+                    </center>
+                    </div>
+                </div>
+                <br>
+                <p><button type="submit">Ajouter</button> | <button><a href="/logement">Annuler</a></button></p>
+                {{ form_end(form) }}  
+            </div>
+        <div class="col-md-2"></div>
+        </div>
     </div>
+</div>
 {% endblock %}

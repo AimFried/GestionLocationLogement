@@ -61,8 +61,11 @@ class LogementController extends AbstractController
     }
 
     #[Route('/logement/modifier/{id}', name: 'logement_modifier')]
-    public function modifier(Request $request,ManagerRegistry $doctrine, LOGEMENT $logement): Response
+    public function modifier(Request $request,ManagerRegistry $doctrine, LOGEMENT $logement, RESERVATIONRepository $reservationRepository, LOCATAIRERepository $locataireRepository, LOGEMENTRepository $logementRepository,$id): Response
     {
+        $reservations = $reservationRepository->find($id);
+        $locataires = $locataireRepository->find($id);
+        $logements = $logementRepository->find($id);
         $entityManager = $doctrine->getManager();
 
         $form = $this->createForm(LogementType::class, $logement);
@@ -75,12 +78,12 @@ class LogementController extends AbstractController
                 return $this->redirectToRoute('logement');
             }
         return $this->render('Logement/modifier.html.twig', [
-            'form' => $form->createView(),
+            'form' => $form->createView(),'reservations' => $reservations,'locataires' => $locataires,'logements' =>$logements,
         ]);
     }
 
     #[Route('/logement/supprimer/{id}', name: 'logement_supprimer')]
-    public function supprimer(Request $request,ManagerRegistry $doctrine, LOGEMENT $logement): Response
+    public function supprimer(Request $request,ManagerRegistry $doctrine,LOGEMENT $logement): Response
     {
         $entityManager = $doctrine->getManager();
 

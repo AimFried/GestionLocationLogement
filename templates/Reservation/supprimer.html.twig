@@ -1,11 +1,70 @@
 {% extends 'base.html.twig' %}
 
+{% block title %}Réservation | Supprimer{% endblock %}
 
 {% block body %}
 <div style="margin-top: 80px;">
-    {{ form_start(form) }}
-    {{ form_rest(form) }}
-    <button type="submit">Supprimer</button>
-    {{ form_end(form) }}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+                <center><h2>Supprimer une réservation</h2><center>
+                <br>
+                {{ form_start(form) }}
+                <div class="card text-center">
+                    <div class="card-header">
+                        <h4>Péridode</h4>
+                    </div>
+                    <div class="card-body">
+                    <center>
+                        <table style="width: 70%;">
+                            <tr>
+                                <th>
+                                    {{form_row(form.DateDebut)}}
+                                </th>
+                                <th>
+                                    {{form_row(form.DateFin)}}
+                                </th>
+                            </tr>
+                        </table>
+                    </center>
+                    </div>
+                </div>
+                <div class="card text-center">
+                    <div class="card-header">
+                        <h4>Détails</h4>
+                    </div>
+                    <div class="card-body">
+                    <center>
+                        <table>
+                            <tr>
+                                <th>
+                                    {{form_row(form.PrixNuit)}}
+                                    {{form_row(form.PrixTotal)}}
+                                </th>
+                                <th>
+                                    {{form_row(form.NbrAdulte)}}
+                                    {{form_row(form.NbrEnfant)}}
+                                </th>
+                                <th>
+                                    {{form_row(form.Locataires)}}
+                                    {{form_row(form.Logements)}}
+                                </th>
+                                <th>
+                                    {{form_row(form.EtatContrat)}}
+                                </th>
+                            </tr>
+                        </table>
+                    </center>
+                    </div>
+                </div>
+                <br>
+                <p><button type="submit">Supprimer</button> | <button><a href="/reservation">Annuler</a></button></p>
+                
+                {{ form_end(form) }}  
+            </div>
+        <div class="col-md-2"></div>
+        </div>
     </div>
+</div>
 {% endblock %}
