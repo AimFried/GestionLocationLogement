@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Paramétre(s){% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="card bg-default">
+                    <h3 class="card-header">
+                        <center>Liste des utilisateur(s)</center>
+                    </h3>
+                    <div class="card-body">
+                       <center>
+                            <select class="form-select" size="5" aria-label="size 3 select example">
+                                    {% for unUtilisateur in utilisateurs %}
+                                    <option>role | {{unUtilisateur.email}}</option>
+                                    {% endfor %}
+                            </select>
+                        </center>                         
+                    </div>
+                    </div>
+                    <div class="card-footer">
+                        <center>
+                            <button><a href="/inscription">Ajouter</a></button>
+                            <button><a href="">Modifier</a></button>
+                            <button><a href="">Supprimer</a></button>
+                        </center>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-9">
+                <div id="calendrier">
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

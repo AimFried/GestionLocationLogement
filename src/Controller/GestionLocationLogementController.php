@@ -21,14 +21,6 @@ use Symfony\Component\Validator\Constraints\DateTime;
 
 class GestionLocationLogementController extends AbstractController
 {
-    #[Route('/', name: 'authentification')]
-    public function authentification(): Response
-    {
-        return $this->render('gestion_location_logement/authentification.html.twig',[
-            
-        ]);
-    }
-
     #[Route('/calendrier/tous', name: 'calendrier')]
     public function calendrier(RESERVATIONRepository $reservationRepository,LOGEMENTRepository $logementRepository ,calendarRepository $calendar): Response
     {
