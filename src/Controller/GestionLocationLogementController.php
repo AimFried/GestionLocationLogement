@@ -13,11 +13,11 @@ use App\Repository\CalendarRepository;
 use App\Repository\LOGEMENTRepository;
 use App\Repository\LOCATAIRERepository;
 use App\Repository\RESERVATIONRepository;
-use Doctrine\DBAL\Types\DateTimeType;
-use Doctrine\DBAL\Types\DateType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\DateType as TypeDateType;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Validator\Constraints\DateTime;
+use Doctrine\Persistence\ManagerRegistry;
+use DateTime;
 
 class GestionLocationLogementController extends AbstractController
 {
@@ -41,6 +41,7 @@ class GestionLocationLogementController extends AbstractController
                 'borderColor' => $event->getBorderColor(),
                 'textColor' => $event->getTextColor(),
                 'allDay' => $event->getAllday(),
+                'description' => $event->getDescription()
             ];
         }
         //Encodage du tableau pour FullCalendar
@@ -75,6 +76,7 @@ class GestionLocationLogementController extends AbstractController
                 'borderColor' => $event->getBorderColor(),
                 'textColor' => $event->getTextColor(),
                 'allDay' => $event->getAllday(),
+                'description' => $event->getDescription()
             ];
             }
         }
@@ -83,5 +85,62 @@ class GestionLocationLogementController extends AbstractController
 
 
         return $this->render('gestion_location_logement/calendrierLogement.html.twig', compact('data','logements','logement'));
+    }
+
+    /**
+     * @Route("/calendrier/modifier/{id}", name="calendrier_modifier", methods={"PUT"})
+     */
+    #[Route('/calendrier/modifier/{id}', name: 'calendrier_modifier')]
+    public function majEvent(?Calendar $calendar, Request $request, ManagerRegistry $doctrine)
+    {
+        // On récupère les données
+        $donnees = json_decode($request->getContent());
+
+        if(
+            isset($donnees->title) && !empty($donnees->title) &&
+            isset($donnees->start) && !empty($donnees->start) &&
+            isset($donnees->description) && !empty($donnees->description) &&
+            isset($donnees->backgroundColor) && !empty($donnees->backgroundColor) &&
+            isset($donnees->borderColor) && !empty($donnees->borderColor) &&
+            isset($donnees->textColor) && !empty($donnees->textColor)
+        ){
+            // Les données sont complètes
+            // On initialise un code
+            $code = 200;
+
+            // On vérifie si l'id existe
+            if(!$calendar){
+                // On instancie un rendez-vous
+                $calendar = new Calendar;
+
+                // On change le code
+                $code = 201;
+            }
+
+            // On hydrate l'objet avec les données
+            $calendar->setTitle($donnees->title);
+            $calendar->setDescription($donnees->description);
+            $calendar->setStart(new DateTime($donnees->start));
+            $calendar->setEnd(new DateTime($donnees->end));
+            $calendar->setAllDay($donnees->allDay);
+            $calendar->setBackgroundColor($donnees->backgroundColor);
+            $calendar->setBorderColor($donnees->borderColor);
+            $calendar->setTextColor($donnees->textColor);
+
+            $entityManager = $doctrine->getManager();
+            $entityManager->persist($calendar);
+            $entityManager->flush();
+
+            // On retourne le code
+            return new Response('Ok', $code);
+        }else{
+            // Les données sont incomplètes
+            return new Response('Données incomplètes', 404);
+        }
+
+
+        return $this->render('api/index.html.twig', [
+            'controller_name' => 'ApiController',
+        ]);
     }
 }
