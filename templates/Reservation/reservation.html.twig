@@ -3,7 +3,9 @@
 {# Compte le nombres de locataires #}
 {% set nbrReservations = 0 %}
 {% for uneReservations in reservations %}
+	{% if dateToday|date("m/d/Y") > uneReservations.DateFin|date("m/d/Y") %}
 	{% set nbrReservations = nbrReservations + 1 %}
+	{% endif %}
 {% endfor %}
 
 {% block title %}Liste des réservation(s){% endblock %}
@@ -15,14 +17,19 @@
 {% block body %}
     <div class="row">
 		<div class="col-md-12">
-			<table class="table">
+			<center><h2>Liste de réservation(s)</h2></center>
+			<table class="table table-striped">
 				<thead>
 					<tr>
 						<th><strong>Logement</strong></th>
 						<th><strong>Locataire</strong></th>
-						<th><strong>Date Début</strong></th>
-						<th><strong>Date Fin</strong></th>
-						<th><strong>Prix Nuit</strong></th>
+						<th><strong>Début</strong></th>
+						<th><strong>Fin</strong></th>
+						<th><strong>Nombre de jours</strong></th>
+						<th><strong>Prix à la nuit</strong></th>
+						<th><strong>Taxe de séjour</strong></th>
+						<th><strong>Prix du séjour</strong></th>
+						<th><strong>Commentaire</strong></th>
 						<th></th>
 					</tr>
 				</thead>
@@ -31,41 +38,36 @@
 				{% for uneReservations in reservations %}
 				{% if dateToday|date("m/d/Y") > uneReservations.DateFin|date("m/d/Y") %}
 					<tr>
-						<th scope="row"><a href="{{path('logement_profile', {id:uneReservations.logements.id})}}">{{uneReservations.Logements.Nom}}</a></th>
+						<th scope="row"><a href="">{{uneReservations.Logements.Nom}}</a></th>
 						<th scope="row"><a href="">{{uneReservations.locataires.Nom}}</a></th>
 						<th scope="row">{{uneReservations.DateDebut|date("m/d/Y")}}</th>
 						<th scope="row">{{uneReservations.DateFin|date("m/d/Y")}}</th>
+
+						<th scope="row">?</th>
                         <th scope="row">{{uneReservations.PrixNuit}}</th>
+						<th scope="row">?</th>
+						<th scope="row">{{uneReservations.PrixTotal}}</th>
+						<th scope="row"><input type="text" size="30"></th>
 				
 						<th scope="row">
-							<button class="btn btn-sm btn-outline-secondary me-2" type="button"><a href="{{path('reservation_modifier', {id:uneReservations.id})}}">Modifier</a></button>
-							<button class="btn btn-sm btn-outline-secondary me-2" type="button" ><a href="{{path('reservation_supprimer', {id:uneReservations.id})}}">Supprimer</a></button>
-
+							<div class="btn-group" role="group" aria-label="Basic outlined example">
+								<button type="button" class="btn btn-outline-primary"><a href="{{path('reservation_modifier', {id:uneReservations.id})}}">Modifier</a></button>
+								<button type="button" class="btn btn-outline-primary"><a href="{{path('reservation_supprimer', {id:uneReservations.id})}}">Supprimer</a></button>
+							</div>
 						{% endif %}
                     {% endfor %}
-
 						</th>
 					</tr>
 				{% if nbrReservations == 0 %}
-					<tr>
-						<th scope="row">vide</th>
-						<th scope="row">vide</th>
-						<th scope="row">vide</th>
-						<th scope="row">vide</th>
-						<th scope="row">vide</th>
-						<th scope="row">
-							<button class="btn btn-sm btn-outline-secondary me-2" type="button">Ajouter</button>
-						</th>
-					</tr>
+					<center><p>Aucune réservation !</p></center>
 				{% endif %}
-				<th>
-						<th></th>
-						<th></th>
-						<th></th>
-						<th></th>
-						<th><button class="btn btn-sm btn-outline-secondary me-2" type="button"><a href="/reservation/ajouter">Ajouter</a></button></th>
 				</tbody>
 			</table>
+			<center>
+				<div class="btn-group" role="group" aria-label="Basic outlined example">
+					<button type="button" class="btn btn-outline-primary"><a href="/reservation/ajouter">Ajouter</a></button>
+				</div>
+			</center>
 		</div>
 	</div>
 {% endblock %}

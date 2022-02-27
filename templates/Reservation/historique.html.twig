@@ -3,7 +3,9 @@
 {# Compte le nombres d'historiques #}
 {% set nbrHistoriques = 0 %}
 {% for uneReservations in reservations %}
+	{% if dateToday|date("m/d/Y") < uneReservations.DateFin|date("m/d/Y") %}
 	{% set nbrHistoriques = nbrHistoriques + 1 %}
+	{% endif %}
 {% endfor %}
 
 {% block title %}Historique des réservation(s){% endblock %}
@@ -15,6 +17,7 @@
 {% block body %}
     <div class="row">
 		<div class="col-md-12">
+			<center><h2>Historique de réservation(s)</h2></center>
 			<table class="table">
 				<thead>
 					<tr>
@@ -51,6 +54,8 @@
                         <th scope="row">vide</th>
                         <th scope="row">vide</th>
                         <th scope="row">vide</th>
+                        <th scope="row">vide</th>
+						<th scope="row">vide</th>
                         <th scope="row">vide</th>
                         <th scope="row">
                             <button class="btn btn-sm btn-outline-secondary me-2" type="button">Réserver</button>

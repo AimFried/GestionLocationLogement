@@ -23,11 +23,11 @@ class ReservationType extends AbstractType
         $builder
             ->add('DateDebut', DateType::class, [
                 'required' => true,
-                'label' => "Début de la réservation"
+                'label' => false
             ])
             ->add('DateFin', DateType::class, [
                 'required' => true,
-                'label' => "Fin de la réservation"
+                'label' => false
             ])
             ->add('PrixNuit', MoneyType::class, [
                 'required' => true,
@@ -60,22 +60,22 @@ class ReservationType extends AbstractType
             ))
             ->add('CouleurFond', ColorType::class, [
                 'required' => true,
-                'label' => "Couleur de la réservation",
+                'label' => "Réservation",
                 'mapped'  => false,
             ])
             ->add('CouleurBordure', ColorType::class, [
                 'required' => true,
-                'label' => "Couleur de la bordure",
+                'label' => "Bordure",
                 'mapped'  => false,
             ])
             ->add('CouleurTexte', ColorType::class, [
                 'required' => true,
-                'label' => "Couleur du texte",
+                'label' => "Texte",
                 'mapped'  => false,
             ])
             ->add('Description', TextareaType::class, [
                 'required' => true,
-                'label' => "Description de la réservation",
+                'label' => false,
                 'mapped'  => false,
             ])
         ;
