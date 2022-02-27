@@ -26,8 +26,8 @@ class GestionLocationLogementController extends AbstractController
     {
         $logements = $logementRepository->findAll();
         $reservations = $reservationRepository->findAll();
-        
         $events = $calendar->findAll();
+
         //Création d'un tableau pour rendre compatible les valeurs des dates
         $rdvs = [];
         foreach($events as $event)
@@ -91,10 +91,11 @@ class GestionLocationLogementController extends AbstractController
      * @Route("/calendrier/modifier/{id}", name="calendrier_modifier", methods={"PUT"})
      */
     #[Route('/calendrier/modifier/{id}', name: 'calendrier_modifier')]
-    public function majEvent(?Calendar $calendar, Request $request, ManagerRegistry $doctrine)
+    public function majEvent(?Calendar $calendar, Request $request, ManagerRegistry $doctrine, RESERVATIONRepository $reservationRepository,$id)
     {
         // On récupère les données
         $donnees = json_decode($request->getContent());
+        $reservations = $reservationRepository->findAll();
 
         if(
             isset($donnees->title) && !empty($donnees->title) &&
@@ -127,7 +128,18 @@ class GestionLocationLogementController extends AbstractController
             $calendar->setBorderColor($donnees->borderColor);
             $calendar->setTextColor($donnees->textColor);
 
+            //Mise à jour des dates dans la table de réservation
+            foreach ($reservations as $reservation)
+            {
+                if($reservation->Calendrier->getId() == $id)
+                {
+                    $reservation->setDateDebut(new DateTime($donnees->start));
+                    $reservation->setDateFin(new DateTime($donnees->end));
+                }
+            }
+
             $entityManager = $doctrine->getManager();
+            $entityManager->persist($reservation);
             $entityManager->persist($calendar);
             $entityManager->flush();
 

@@ -25,7 +25,7 @@
 
            calendar.on('eventChange', (e) =>{
                 let url = `/calendrier/modifier/${e.event.id}`
-                
+
                 let donnees = {
                 "title": e.event.title,
                 "description": e.event.extendedProps.description,

@@ -29,6 +29,7 @@
 				<tbody>
 				{# Afficher tous les réservations à venir #}
 				{% for uneReservations in reservations %}
+				{% if dateToday|date("m/d/Y") > uneReservations.DateFin|date("m/d/Y") %}
 					<tr>
 						<th scope="row"><a href="{{path('logement_profile', {id:uneReservations.logements.id})}}">{{uneReservations.Logements.Nom}}</a></th>
 						<th scope="row"><a href="">{{uneReservations.locataires.Nom}}</a></th>
@@ -40,7 +41,7 @@
 							<button class="btn btn-sm btn-outline-secondary me-2" type="button"><a href="{{path('reservation_modifier', {id:uneReservations.id})}}">Modifier</a></button>
 							<button class="btn btn-sm btn-outline-secondary me-2" type="button" ><a href="{{path('reservation_supprimer', {id:uneReservations.id})}}">Supprimer</a></button>
 
-						
+						{% endif %}
                     {% endfor %}
 
 						</th>

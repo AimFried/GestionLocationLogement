@@ -19,9 +19,11 @@ class ReservationController extends AbstractController
     public function reservation(RESERVATIONRepository $reservationRepository): Response
     {
         $reservations = $reservationRepository->findAll();
+
+        $dateToday = new \DateTime("now");
         
         return $this->render('reservation/reservation.html.twig', [
-            'reservations' => $reservations,
+            'reservations' => $reservations, 'dateToday' => $dateToday
         ]);
     }
 
@@ -29,9 +31,10 @@ class ReservationController extends AbstractController
     public function historique(RESERVATIONRepository $reservationRepository): Response
     {
         $reservations = $reservationRepository->findAll();
+        $dateToday = new \DateTime("now");
         
         return $this->render('reservation/historique.html.twig', [
-            'reservations' => $reservations,
+            'reservations' => $reservations, 'dateToday' => $dateToday
         ]);
     }
 
