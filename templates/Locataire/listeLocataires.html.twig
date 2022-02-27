@@ -16,15 +16,15 @@
     <div class="row">
 		<div class="col-md-12">
 			<center><h2>Liste de locataire(s)</h2></center>
-			<table class="table">
+			<table class="table table-striped">
 				<thead>
 					<tr>
-						<th><strong>Nom</strong></th>
-						<th><strong>Prenom</strong></th>
-						<th><strong>Telephone</strong></th>
-						<th><strong>Email</strong></th>
-						<th><strong>Dernière location</strong></th>
-						<th></th>
+						<th style="width: 15%;"><strong>Nom</strong></th>
+						<th style="width: 15%;"><strong>Prenom</strong></th>
+						<th style="width: 10%;"><strong>Telephone</strong></th>
+						<th style="width: auto;"><strong>Email</strong></th>
+						<th style="width: 10%;"><strong>Dernière location</strong></th>
+						<th style="width: 5%;"></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -55,35 +55,28 @@
 						{% endfor %}
 
 						{% if lastLocEtat == false %}
-							<th scope="row">Vide</th>	
+							<th scope="row"></th>	
 						{% endif %}		
 
 						<th scope="row">
-							<button class="btn btn-sm btn-outline-secondary me-2" type="button"><a href="{{path('locataire_modifier', {id:unLocataires.id})}}">Modifier</a></button>
-							<button class="btn btn-sm btn-outline-secondary me-2" type="button" ><a href="{{path('locataire_profile', {id:unLocataires.id})}}">Détails</a></button>
+							<center>
+								<div class="btn-group" role="group" aria-label="Basic outlined example">
+									<button type="button" class="btn btn-outline-primary"><a href="{{path('locataire_profile', {id:unLocataires.id})}}">Voir</a></button>
+								</div>
+							</center>
 						</th>
 					</tr>
 				{% endfor %}
-				{% if nbrLocataires == 0 %}
-					<tr>
-						<th scope="row">vide</th>
-						<th scope="row">vide</th>
-						<th scope="row">vide</th>
-						<th scope="row">vide</th>
-						<th scope="row">vide</th>
-						<th scope="row">
-							<button class="btn btn-sm btn-outline-secondary me-2" type="button"><a href="">Ajouter</a></button>
-						</th>
-					</tr>
-				{% endif %}
-					<th>
-						<th></th>
-						<th></th>
-						<th></th>
-						<th></th>
-						<th><button class="btn btn-sm btn-outline-secondary me-2" type="button"><a href="/locataire/ajouter">Ajouter</a></button></th>
+					{% if nbrLocataires == 0 %}
+						<center><p>Aucun locataire !</p></center>
+					{% endif %}
 				</tbody>
 			</table>
+			<center>
+				<div class="btn-group" role="group" aria-label="Basic outlined example">
+					<button type="button" class="btn btn-outline-primary"><a href="{{path('locataire_ajouter')}}">Ajouter</a></button>
+				</div>
+			</center>
 		</div>
 	</div>
 {% endblock %}

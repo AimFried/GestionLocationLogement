@@ -18,16 +18,16 @@
     <div class="row">
 		<div class="col-md-12">
 			<center><h2>Historique de réservation(s)</h2></center>
-			<table class="table">
+			<table class="table table-striped">
 				<thead>
 					<tr>
-						<th><strong>Logement</strong></th>
-						<th><strong>Locataire</strong></th>
-                        <th><strong>Date début</strong></th>
-                        <th><strong>Date fin</strong></th>
-                        <th><strong>Prix nuit</strong></th>
-                        <th><strong>Recette</strong></th>
-                        <th></th>
+						<th style="width: 10%;"><strong>Logement</strong></th>
+						<th style="width: auto;"><strong>Locataire</strong></th>
+                        <th style="width: 7%;"><strong>Date début</strong></th>
+                        <th style="width: 7%;"><strong>Date fin</strong></th>
+                        <th style="width: 5%;"><strong>Prix nuit</strong></th>
+                        <th style="width: 5%;"><strong>Recette</strong></th>
+                        <th style="width: 7%;"></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -42,26 +42,16 @@
                         <th scope="row">{{uneReservations.PrixNuit}}</th>
                         <th scope="row">{{uneReservations.PrixTotal}}</th>
                         <th scope="row">
-                            <button class="btn btn-sm btn-outline-secondary me-2" type="button">Détails</button>
+                            <div class="btn-group" role="group" aria-label="Basic outlined example">
+								<button type="button" class="btn btn-outline-primary"><a href="{{path('historique_profile', {id:uneReservations.id})}}">Voir</a></button>
+							</div>
                         </th>
 					</tr>
 					{% endif %}
 				{% endfor %}
 				{% if nbrHistoriques == 0 %}
-					<tr>
-                    	<th scope="row">vide</th>
-						<th scope="row">vide</th>
-                        <th scope="row">vide</th>
-                        <th scope="row">vide</th>
-                        <th scope="row">vide</th>
-                        <th scope="row">vide</th>
-						<th scope="row">vide</th>
-                        <th scope="row">vide</th>
-                        <th scope="row">
-                            <button class="btn btn-sm btn-outline-secondary me-2" type="button">Réserver</button>
-                        </th>
-					</tr>
-				{% endif %}
+						<center><p>Aucune réservation dans l'historique !</p></center>
+					{% endif %}
 				</tbody>
 			</table>
 		</div>

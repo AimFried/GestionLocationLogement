@@ -19,23 +19,19 @@
 			<table class="table table-striped">
 				<thead>
 					<tr>
-						<th><strong>Nom</strong></th>
-						<th><strong>Ville</strong></th>
-                        <th><strong>Adresse</strong></th>
-                        <th><strong>Pers. max</strong></th>
-                        <th><strong>Etat</strong></th>
-                        <th></th>
+						<th style="width: 7%;"><strong>Etat</strong></th>
+						<th style="width: 20%;"><strong>Nom</strong></th>
+						<th style="width: auto;"><strong>Ville</strong></th>
+                        <th style="width: 25%;"><strong>Adresse</strong></th>
+                        <th style="width: 6%;"><strong>Pers. max</strong></th>
+                        <th style="width: 5%;"></th>
 					</tr>
 				</thead>
 				<tbody>
 				{# Afficher tous les logements #}
 				{% for unLogements in logements %}
 					<tr>
-                    	<th scope="row">{{unLogements.Nom}}</th>
-						<th scope="row">{{unLogements.Ville}}</th>
-                        <th scope="row">{{unLogements.Adresse}}</th>
-                        <th scope="row">{{unLogements.PersMax}}</th>
-                        <th scope="row">
+						<th scope="row">
 						{% set logementEtat = "Occupé" %}
 							{% if unLogements.Etat == 1 %}
 								{% set logementEtat = "Libre" %}
@@ -44,6 +40,10 @@
 								<img src="/rouge.png" width=10 height=10>
 							{% endif %}
 							{{logementEtat}}</th>
+                    	<th scope="row">{{unLogements.Nom}}</th>
+						<th scope="row">{{unLogements.Ville}}</th>
+                        <th scope="row">{{unLogements.Adresse}}</th>
+                        <th scope="row">{{unLogements.PersMax}}</th>
                         <th scope="row">
 							<div class="btn-group" role="group" aria-label="Basic outlined example">
 								<button type="button" class="btn btn-outline-primary"><a href="{{path('logement_profile', {id:unLogements.id})}}">Voir</a></button>
