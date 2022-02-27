@@ -52,11 +52,11 @@ class ReservationController extends AbstractController
                 $event->setTitle($reservation->getLocataires()->getNom());
                 $event->setStart($reservation->getDateDebut());
                 $event->setEnd($reservation->getDateFin());
-                $event->setDescription("Location");
-                $event->setBackgroundColor("blue");
-                $event->setBorderColor("blue");
-                $event->setTextColor("white");
-                $event->setAllday("false");
+                $event->setDescription($form['Description']->getData());
+                $event->setBackgroundColor($form['CouleurFond']->getData());
+                $event->setBorderColor($form['CouleurBordure']->getData());
+                $event->setTextColor($form['CouleurTexte']->getData());
+                $event->setAllday("0");
                 
                 $reservation->setCalendrier($event);
 
@@ -78,6 +78,13 @@ class ReservationController extends AbstractController
         $entityManager = $doctrine->getManager();
 
         $form = $this->createForm(ReservationType::class, $reservation);
+        
+        //Initialisation des champs non mappé
+        $event_temp = $reservation->getCalendrier();
+        $form['Description']->setData($event_temp->getDescription());
+        $form['CouleurFond']->setData($event_temp->getBackgroundColor());
+        $form['CouleurBordure']->setData($event_temp->getBorderColor());
+        $form['CouleurTexte']->setData($event_temp->getTextColor());
 
         $form->handleRequest($request);
             if ($form->isSubmitted() && $form->isValid()){
@@ -87,11 +94,11 @@ class ReservationController extends AbstractController
                 $event->setTitle($reservation->getLocataires()->getNom());
                 $event->setStart($reservation->getDateDebut());
                 $event->setEnd($reservation->getDateFin());
-                $event->setDescription("Location");
-                $event->setBackgroundColor("blue");
-                $event->setBorderColor("blue");
-                $event->setTextColor("white");
-                $event->setAllday("false");
+                $event->setDescription($form['Description']->getData());
+                $event->setBackgroundColor($form['CouleurFond']->getData());
+                $event->setBorderColor($form['CouleurBordure']->getData());
+                $event->setTextColor($form['CouleurTexte']->getData());
+                $event->setAllday("0");
                 
                 $reservation->setCalendrier($event);
 
@@ -112,6 +119,13 @@ class ReservationController extends AbstractController
         $entityManager = $doctrine->getManager();
 
         $form = $this->createForm(ReservationType::class, $reservation);
+
+        //Initialisation des champs non mappé
+        $event_temp = $reservation->getCalendrier();
+        $form['Description']->setData($event_temp->getDescription());
+        $form['CouleurFond']->setData($event_temp->getBackgroundColor());
+        $form['CouleurBordure']->setData($event_temp->getBorderColor());
+        $form['CouleurTexte']->setData($event_temp->getTextColor());
 
         $form->handleRequest($request);
             if ($form->isSubmitted() && $form->isValid()){

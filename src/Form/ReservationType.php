@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+use App\Entity\Calendar;
 use App\Entity\RESERVATION;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -10,6 +11,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\ColorType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use App\Entity\LOCATAIRE;
 use App\Entity\LOGEMENT;
 
@@ -55,6 +58,26 @@ class ReservationType extends AbstractType
                 'multiple' => false,
                 'expanded' => false,
             ))
+            ->add('CouleurFond', ColorType::class, [
+                'required' => true,
+                'label' => "Couleur de la réservation",
+                'mapped'  => false,
+            ])
+            ->add('CouleurBordure', ColorType::class, [
+                'required' => true,
+                'label' => "Couleur de la bordure",
+                'mapped'  => false,
+            ])
+            ->add('CouleurTexte', ColorType::class, [
+                'required' => true,
+                'label' => "Couleur du texte",
+                'mapped'  => false,
+            ])
+            ->add('Description', TextareaType::class, [
+                'required' => true,
+                'label' => "Description de la réservation",
+                'mapped'  => false,
+            ])
         ;
     }
 
