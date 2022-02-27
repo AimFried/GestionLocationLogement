@@ -3,65 +3,102 @@
 {% block title %}Logement | Ajouter{% endblock %}
 
 {% block body %}
+{{form_start(form)}}
 <div style="margin-top: 80px;">
     <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-2"></div>
-            <div class="col-md-8">
-                <center><h2>Ajouter un logement</h2><center>
-                <br>
-                {{ form_start(form) }}
-                <div class="card text-center">
-                    <div class="card-header">
-                        <h4>Information</h4>
+	<div class="row">
+    <center><h2>Ajouter un logement</h2><center><br><br
+		<div class="col-md-1">
+		</div>
+		<div class="col-md-10">
+			<div class="row">
+				<div class="col-md-8">
+                    <div class="card">
+                        <div class="card-body">
+                            <center><h5 class="card-title">Information générale</h5></center>
+                            <hr>
+                            <table style="width: 100%;">
+                                <tr>
+                                    <th style="width: 40%;padding-right: 5%;">
+										<h6 class="card-subtitle mb-2 text-muted">Nom</h6>
+                                        <center>{{form_row(form.Nom)}}</center>
+                                    </th>
+                                    <th style="width: 40%;">
+                                        <h6 class="card-subtitle mb-2 text-muted">Nombre max de personne(s)</h6>
+                                        <center>{{form_row(form.PersMax)}}</center>
+                                    </th>
+                                </tr>
+                            </table>
+                            <br>
+                            <center>                        
+                                <h6 class="card-subtitle mb-2 text-muted">Commentaire</h6>
+								{{form_row(form.Description)}}
+                            </center>
+                            <br>
+                            <hr>
+                            <br>
+                        </div>
+                    </div>               
+				</div>
+				<div class="col-md-4">
+				<div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title"> 
+							<center>
+							{{form_row(form.Etat)}}
+							</center>
+							</h5>
+                        </div>
                     </div>
-                    <div class="card-body">
-                    <center>
-                        <table>
-                            <tr>
-                                <th>
-                                    {{form_row(form.Nom)}}
-                                    {{form_row(form.PersMax)}}
-                                    {{form_row(form.Etat)}}
-                                </th>
-                                <th>
-                            </th>
-                                <th style="width: 75%;">
-                                    {{form_row(form.Description)}}
-                                </th>
-                            </tr>
-                        </table>
-                    </center>
+					<br>
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Emplacement</h5>
+                            <hr>
+							<br>
+								<table>
+									<tr>
+										<th style="width: 75%;">
+											<h6 class="card-subtitle mb-2 text-muted">Ville</h6>
+											<center>{{form_row(form.Ville)}}</center>
+										</th>
+										<th>
+											<h6 class="card-subtitle mb-2 text-muted">Code Postal</h6>
+                                			<center>{{form_row(form.CodePostal)}}</center>
+										</th>
+									</tr>
+								</table>
+	                       		 <br>
+                                <h6 class="card-subtitle mb-2 text-muted">Adresse</h6>
+                                <center>{{form_row(form.Adresse)}}</center>
+							<br>
+                        </div>
                     </div>
-                </div>
-                <div class="card text-center">
-                    <div class="card-header">
-                        <h4>Lieu</h4>
+					<br>
+					<div class="card">
+                        <div class="card-body">
+							<center>
+                            <div class="btn-group" role="group" aria-label="Basic outlined example">
+								<button type="submit" class="btn btn-outline-primary"><a href="{{path('logement')}}">Enregistrer</a></button>
+								<button type="button" class="btn btn-outline-primary"><a href="{{path('logement')}}">Annuler</a></button>
+							</div>
+							</center>
+                        </div>
                     </div>
-                    <div class="card-body">
-                    <center>
-                        <table style="width: 70%;">
-                            <tr>
-                                <th>
-                                    {{form_row(form.Adresse)}}
-                                </th>
-                                <th>
-                                    {{form_row(form.Ville)}}
-                                </th>
-                                <th>
-                                    {{form_row(form.CodePostal)}}
-                                </th>
-                            </tr>
-                        </table>
-                    </center>
-                    </div>
-                </div>
-                <br>
-                <p><button type="submit">Ajouter</button> | <button><a href="/logement">Annuler</a></button></p>
-                {{ form_end(form) }}  
-            </div>
-        <div class="col-md-2"></div>
-        </div>
-    </div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-8">
+
+				</div>
+				<div class="col-md-4">
+
+				</div>
+			</div>
+		</div>
+		<div class="col-md-1">
+		</div>
+	</div>
 </div>
+{{form_end(form)}}							
 {% endblock %}

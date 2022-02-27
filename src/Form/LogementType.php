@@ -17,27 +17,27 @@ class LogementType extends AbstractType
         $builder
             ->add('Nom', TextType::class, [
                 'required' => true,
-                'label' => "Nom du logement"
+                'label' => false
             ])
             ->add('Adresse', TextType::class, [
                 'required' => true,
-                'label' => "L'adresse du logement"
+                'label' => false
             ])
             ->add('Ville', TextType::class, [
                 'required' => true,
-                'label' => "Ville du logement"
+                'label' => false
             ])
             ->add('CodePostal', NumberType::class, [
                 'required' => true,
-                'label' => "Code Postal du logement"
+                'label' => false
             ])
             ->add('PersMax', NumberType::class, [
                 'required' => true,
-                'label' => "Nombre(s) de personne(s) maximum"
+                'label' => false
             ])
             ->add('Description', TextareaType::class, [
                 'required' => true,
-                'label' => "Description du logement"
+                'label' => false
             ])
             ->add('Etat')
         ;

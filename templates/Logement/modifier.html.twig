@@ -1,113 +1,137 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Logement | Modification{% endblock %}
+{% block title %}Logement | Modifier{% endblock %}
 
 {% block body %}
 {{ form_start(form) }}
-	<div class="container-fluid">
-		<div class="row">
-			<div class="col-md-1"></div>
-				<div class="col-md-10">
-					<div class="row">
-					{# BOX INDIVIDU #}
-						<div class="col-md-4">
-							<div class="card">
-								<h5 class="card-header"><center>Logement</center></h5>
-								<div class="card-body">
-									<p class="card-text">
-										<div class="input-group mb-3">
-                                        	{{form_row(form.Nom)}}
-                                    	</div>
-										<div class="input-group mb-3">
-                                        	{{form_row(form.PersMax)}}
-                                    	</div>
-									</p>
-								</div>
-							<div class="card-footer"></div>
-						</div>
-					</div>
-					{# BOX INFORMATION PERSONNEL #}
-					<div class="col-md-8">
-						<div class="card"><h5 class="card-header"><center>Information</center></h5>
-						<div class="card-body">
-							<p class="card-text">
-								{# BOX GAUCHE #}
-								<div class="row">
-								<div class="col-md-6">
-									<div class="input-group mb-3">
-										{{form_row(form.Ville)}}
-									</div>
-									<div class="input-group mb-3">
-										{{form_row(form.Adresse)}}
-									</div>
-								</div>
-								{# BOX DROITE #}
-								<div class="col-md-6">
-									<div class="input-group mb-3">
-										{{form_row(form.Etat)}}
-									</div>
-									<div class="input-group mb-3">
-										{{form_row(form.CodePostal)}}
-									</div>
-								</div>
-								</div>	
-							</p>
-						</div>
-						<div class="card-footer"></div>
-						</div>
-					</div>
-					{# BOX RESERVATION #}
-				</div>
-				<div class="card"><h5 class="card-header">Description logement</h5>
-					<div class="card-body">
-						<p class="card-text">
-						<div class="mb-3">
-							{{form_row(form.Description)}}
-						</div>
-						</p>
-					</div>
-				<div class="card-footer"></div>
-				</div>
-                <br>
-                <center><p><button type="submit">Ajouter</button> | <button><a href="/logement">Annuler</a></button></p></center>
-				<div class="card">
-                    <h5 class="card-header">Les dernières réservation</h5>
-						<div class="card-body">
-							<p class="card-text">
-								<table class="table table-striped">
+<div style="margin-top: 80px;">
+    <div class="container-fluid">
+	<div class="row">
+    <center><h2>Modification : {{logements.Nom}}</h2><center><br><br
+		<div class="col-md-1">
+		</div>
+		<div class="col-md-10">
+			<div class="row">
+				<div class="col-md-8">
+                    <div class="card">
+                        <div class="card-body">
+                            <center><h5 class="card-title">Information générale</h5></center>
+                            <hr>
+                            <table style="width: 100%;">
+                                <tr>
+                                    <th style="width: 40%;padding-right: 5%;">
+										<h6 class="card-subtitle mb-2 text-muted">Nom</h6>
+                                        <center>{{form_row(form.Nom)}}</center>
+                                    </th>
+                                    <th style="width: 40%;">
+                                        <h6 class="card-subtitle mb-2 text-muted">Nombre max de personne(s)</h6>
+                                        <center>{{form_row(form.PersMax)}}</center>
+                                    </th>
+                                </tr>
+                            </table>
+                            <br>
+                            <center>                        
+                                <h6 class="card-subtitle mb-2 text-muted">Commentaire</h6>
+								{{form_row(form.Description)}}
+                            </center>
+                            <br>
+                            <hr>
+                            <br>
+                            <center><h6 class="card-subtitle mb-2 text-muted">Dernière(s) réservation(s)</h6></center>
+							<table class="table table-striped">
 									<thead>
 										<tr>
-											<th><strong>Locataire</strong></th>
-											<th><strong>Date Debut</strong></th>
-											<th><strong>Date Fin</strong></th>
-											<th><strong>Adulte(s)</strong></th>
-											<th><strong>Enfant(s)</strong></th>
-											<th><strong>Prix Nuit</strong></th>
-											<th><strong>Prix Total</strong></th>
+											<th>Locataire</th>
+											<th>Date Debut</th>
+											<th>Date Fin</th>
+											<th>Adulte(s)</th>
+											<th>Enfant(s)</th>
+											<th>Prix Nuit</th>
+											<th>Prix Total</th>
 										</tr>
 									</thead>
 									<tbody>
-									{% for uneReservations in logements.reservations %}
-										<tr>
-											<th scope="row"><a href="">{{uneReservations.locataires.Nom}}</a></th>
-											<th scope="row">{{uneReservations.DateDebut|date("m/d/Y")}}</th>
-											<th scope="row">{{uneReservations.DateFin|date("m/d/Y")}}</th>
-								    		<th scope="row">{{uneReservations.NbrAdulte}}</th>
-											<th scope="row">{{uneReservations.NbrEnfant}}</th>
-											<th scope="row">{{uneReservations.PrixNuit}}</th>
-											<th scope="row">{{uneReservations.PrixTotal}}</th>
-										</tr>
-									{% endfor %}
-									</tbody>
+								{% for uneReservations in logements.reservations %}
+									<tr>
+										<th scope="row"><a href="">{{uneReservations.locataires.Nom}}</a></th>
+										<th scope="row">{{uneReservations.DateDebut|date("m/d/Y")}}</th>
+										<th scope="row">{{uneReservations.DateFin|date("m/d/Y")}}</th>
+										<th scope="row">{{uneReservations.NbrAdulte}}</th>
+										<th scope="row">{{uneReservations.NbrEnfant}}</th>
+										<th scope="row">{{uneReservations.PrixNuit}}</th>
+										<th scope="row">{{uneReservations.PrixTotal}}</th>
+									</tr>
+								{% endfor %}
+							</table>
+                        </div>
+                    </div>               
+				</div>
+				<div class="col-md-4">
+				<div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title"> 
+							<center>
+							{% set logementEtat = "Occupé" %}
+							{% if logements.Etat == 1 %}
+								{% set logementEtat = "Libre" %}
+								<img src="/vert.png" width=10 height=10>
+							{% else %}
+								<img src="/rouge.png" width=10 height=10>
+							{% endif %}
+							{{form_row(form.Etat)}}
+							</center>
+							</h5>
+                        </div>
+                    </div>
+					<br>
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Emplacement</h5>
+                            <hr>
+							<br>
+								<table>
+									<tr>
+										<th style="width: 75%;">
+											<h6 class="card-subtitle mb-2 text-muted">Ville</h6>
+											<center>{{form_row(form.Ville)}}</center>
+										</th>
+										<th>
+											<h6 class="card-subtitle mb-2 text-muted">Code Postal</h6>
+                                			<center>{{form_row(form.CodePostal)}}</center>
+										</th>
+									</tr>
 								</table>
-							</p>
-						</div>
-					<div class="card-footer"></div>
-					</div>
-			    </div>
-		    <div class="col-md-1">
-		    </div>
-	    </div>
+	                       		 <br>
+                                <h6 class="card-subtitle mb-2 text-muted">Adresse</h6>
+                                <center>{{form_row(form.Adresse)}}</center>
+							<br>
+                        </div>
+                    </div>
+					<br>
+					<div class="card">
+                        <div class="card-body">
+							<center>
+                            <div class="btn-group" role="group" aria-label="Basic outlined example">
+								<button type="submit" class="btn btn-outline-primary"><a href="{{path('logement_profile', {id:logements.id})}}')}}">Enregistrer</a></button>
+								<button type="button" class="btn btn-outline-primary"><a href="{{path('logement_profile', {id:logements.id})}}">Annuler</a></button>
+							</div>
+							</center>
+                        </div>
+                    </div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-8">
+
+				</div>
+				<div class="col-md-4">
+
+				</div>
+			</div>
+		</div>
+		<div class="col-md-1">
+		</div>
 	</div>
-{{ form_end(form) }}     
+</div>
+{{ form_end(form) }}					
 {% endblock %}

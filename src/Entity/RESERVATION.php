@@ -45,6 +45,12 @@ class RESERVATION
     #[ORM\OneToOne(inversedBy: 'Reservation', targetEntity: Calendar::class, cascade: ['persist', 'remove'])]
     public $Calendrier;
 
+    #[ORM\Column(type: 'float')]
+    private $nbrJours;
+
+    #[ORM\Column(type: 'string', length: 255)]
+    private $description;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -174,6 +180,30 @@ class RESERVATION
     public function toString(\DateTimeInterface $date): self
     {
         $date->format('Y-m-d H:i:s');
+
+        return $this;
+    }
+
+    public function getNbrJours(): ?float
+    {
+        return $this->nbrJours;
+    }
+
+    public function setNbrJours(float $nbrJours): self
+    {
+        $this->nbrJours = $nbrJours;
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(string $description): self
+    {
+        $this->description = $description;
 
         return $this;
     }

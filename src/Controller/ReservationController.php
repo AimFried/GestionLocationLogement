@@ -62,6 +62,7 @@ class ReservationController extends AbstractController
                 $event->setAllday("0");
                 
                 $reservation->setCalendrier($event);
+                $reservation->setDescription($form['Description']->getData());
 
                 $entityManager->persist($event);
                 $entityManager->persist($reservation);
@@ -104,6 +105,10 @@ class ReservationController extends AbstractController
                 $event->setAllday("0");
                 
                 $reservation->setCalendrier($event);
+
+        
+                $reservation->setNbrJours("2");
+                $reservation->setDescription($form['Description']->getData());
 
                 $entityManager->persist($event);
                 $entityManager->persist($reservation);

@@ -43,11 +43,11 @@
 						<th scope="row">{{uneReservations.DateDebut|date("m/d/Y")}}</th>
 						<th scope="row">{{uneReservations.DateFin|date("m/d/Y")}}</th>
 
-						<th scope="row">?</th>
+						<th scope="row">{{uneReservations.nbrJours}}</th>
                         <th scope="row">{{uneReservations.PrixNuit}}</th>
 						<th scope="row">?</th>
 						<th scope="row">{{uneReservations.PrixTotal}}</th>
-						<th scope="row"><input type="text" size="30"></th>
+						<th scope="row"><input class="form-control form-control-sm" type="text" value="{{uneReservations.Description}}" aria-label="Disabled input example" disabled readonly></th>
 				
 						<th scope="row">
 							<div class="btn-group" role="group" aria-label="Basic outlined example">
