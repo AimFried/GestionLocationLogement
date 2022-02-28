@@ -21,6 +21,13 @@ use DateTime;
 
 class GestionLocationLogementController extends AbstractController
 {
+    #[Route('/statistique', name: 'statistique')]
+    public function statistique(): Response
+    {
+        return $this->render('gestion_location_logement/statistique.html.twig');
+    }
+
+
     #[Route('/calendrier/tous', name: 'calendrier')]
     public function calendrier(RESERVATIONRepository $reservationRepository,LOGEMENTRepository $logementRepository ,calendarRepository $calendar): Response
     {

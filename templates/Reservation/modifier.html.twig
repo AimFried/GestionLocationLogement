@@ -91,7 +91,7 @@
                             <br>
                             <div class="btn-group" role="group" aria-label="Basic outlined example">
 								<button type="submit" class="btn btn-outline-primary">Enregistrer</button>
-								<button type="button" class="btn btn-outline-primary"><a href="/reservation">Annuler</a></button>
+								<button type="button" class="btn btn-outline-primary"><a href="{{path('reservation_profile', {id:reservation.id})}}">Annuler</a></button>
                                 {{ form_end(form) }} 
 							</div>
                         </div>

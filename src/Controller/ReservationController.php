@@ -119,8 +119,10 @@ class ReservationController extends AbstractController
     }
 
     #[Route('/reservation/modifier/{id}', name: 'reservation_modifier')]
-    public function modifier(Request $request,ManagerRegistry $doctrine, RESERVATION $reservation): Response
+    public function modifier(Request $request,ManagerRegistry $doctrine, RESERVATION $reservation,RESERVATIONRepository $reservationRepository, $id): Response
     {
+        $reservation = $reservationRepository->find($id);
+
         $entityManager = $doctrine->getManager();
 
         $form = $this->createForm(ReservationType::class, $reservation);
@@ -185,13 +187,15 @@ class ReservationController extends AbstractController
                 return $this->redirectToRoute('reservation');
             }
         return $this->render('Reservation/modifier.html.twig', [
-            'form' => $form->createView(),
+            'form' => $form->createView(),'reservation' => $reservation
         ]);
     }
 
     #[Route('/reservation/supprimer/{id}', name: 'reservation_supprimer')]
-    public function supprimer(Request $request,ManagerRegistry $doctrine, RESERVATION $reservation): Response
+    public function supprimer(Request $request,ManagerRegistry $doctrine, RESERVATION $reservation ,RESERVATIONRepository $reservationRepository, $id): Response
     {
+        $reservation = $reservationRepository->find($id);
+
         $entityManager = $doctrine->getManager();
 
         $form = $this->createForm(ReservationType::class, $reservation);
@@ -213,7 +217,7 @@ class ReservationController extends AbstractController
                 return $this->redirectToRoute('reservation');
             }
         return $this->render('Reservation/supprimer.html.twig', [
-            'form' => $form->createView(),
+            'form' => $form->createView(),'reservation' => $reservation
         ]);
     }
 }

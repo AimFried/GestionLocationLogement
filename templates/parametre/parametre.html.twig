@@ -3,39 +3,37 @@
 {% block title %}Paramétre(s){% endblock %}
 
 {% block body %}
+<div class="container-fluid">
+        <div class="row">
+        <div class="col-md-12">
+        <center><h1>Paramétre</h1>
+        <hr style="width: 20%;">
+        <p>Gestion Location | 1.0 <p></center>
+        </div>
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-3">
-                <div class="card bg-default">
-                    <h3 class="card-header">
-                        <center>Liste des utilisateur(s)</center>
-                    </h3>
+                <div class="card">
                     <div class="card-body">
-                       <center>
+                        <h3 class="card-title"><center>Liste des utilisateur(s)</center></h3>                  
+                        <center>
                             <select class="form-select" size="5" aria-label="size 3 select example">
                                     {% for unUtilisateur in utilisateurs %}
-                                    <option>role | {{unUtilisateur.email}}</option>
+                                    <option>{{unUtilisateur.email}}</option>
                                     {% endfor %}
                             </select>
-                        </center>                         
-                    </div>
-                    </div>
-                    <div class="card-footer">
+                        </center> 
+                        <br>
                         <center>
-                            <button><a href="/inscription">Ajouter</a></button>
-                            <button><a href="">x Modifier</a></button>
-                            <button><a href="">x Supprimer</a></button>
-                        </center>
+                            <button type="button" class="btn btn-outline-primary"><a href="/inscription">Ajouter</a></button>
+                        </center>                  
                     </div>
                 </div>
-
-                
-
             </div>
             <div class="col-md-9">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Information générale</h5>
+                        <h5 class="card-title">Prochainement !</h5>
                     </div>
                 </div>
             </div>
