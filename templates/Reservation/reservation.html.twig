@@ -23,12 +23,12 @@
 					<tr>
 						<th style="width: 13%;"><strong>Logement</strong></th>
 						<th style="width: 13%;"><strong>Locataire</strong></th>
-						<th style="width: 7%;"><strong>Début</strong></th>
-						<th style="width: 7%;"><strong>Fin</strong></th>
+						<th style="width: 6%;"><strong>Début</strong></th>
+						<th style="width: 6%;"><strong>Fin</strong></th>
 						<th style="width: 5%;"><strong>Nombre de jours</strong></th>
 						<th style="width: 5%;"><strong>Prix à la nuit</strong></th>
 						<th style="width: 5%;"><strong>Taxe de séjour</strong></th>
-						<th style="width: 5%;"><strong>Prix du séjour</strong></th>
+						<th style="width: 6%;"><strong>Prix du séjour</strong></th>
 						<th style="width: auto;"><strong>Commentaire</strong></th>
 						<th style="width: 5%;"></th>
 					</tr>
@@ -43,10 +43,10 @@
 						<th scope="row">{{uneReservations.DateDebut|date("m/d/Y")}}</th>
 						<th scope="row">{{uneReservations.DateFin|date("m/d/Y")}}</th>
 
-						<th scope="row">{{uneReservations.nbrJours}}</th>
-                        <th scope="row">{{uneReservations.PrixNuit}}</th>
-						<th scope="row">{{uneReservations.ValeurTaxe}}</th>
-						<th scope="row">{{uneReservations.PrixTotal}}</th>
+						<th scope="row">{{uneReservations.nbrJours}} j</th>
+                        <th scope="row">{{uneReservations.PrixNuit}} €</th>
+						<th scope="row">{{uneReservations.ValeurTaxe}} €</th>
+						<th scope="row">{{uneReservations.PrixTotal}} €</th>
 						<th scope="row"><input class="form-control form-control-sm" type="text" value="{{uneReservations.Description}}" aria-label="Disabled input example" disabled readonly></th>
 				
 						<th scope="row">

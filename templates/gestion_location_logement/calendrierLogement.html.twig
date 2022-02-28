@@ -47,19 +47,16 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-3">
-                <div class="card bg-default">
-                    <h3 class="card-header">
-                        <center>Choisir un logement</center>
-                    </h3>
+                <div class="card">
                     <div class="card-body">
-                        <p class="card-text">
-                            <select class="form-select" size="8" aria-label="size 3 select example">
-                                {% for unLogements in logements %}
-                                <option onClick="window.open('https://127.0.0.1:8000/calendrier/logement/'+{{unLogements.id}});">{{unLogements.Nom}}</option>
-                                {% endfor %}
-                            </select>
-                        </p>
-                        <div class="card-footer">
+                        <h3 class="card-title"><center>Choisir un logement</center></h3>
+                        <hr>
+                        <select class="form-select" size="5" aria-label="size 3 select example">
+                            {% for unLogements in logements %}
+                            <option onClick="window.open('https://127.0.0.1:8000/calendrier/logement/'+{{unLogements.id}});">{{unLogements.Nom}}</option>
+                            {% endfor %}
+                        </select>
+                        <br>
                         <center><h3>Informations</h3></center>
                         <hr></hr>
                         <table>
@@ -116,14 +113,19 @@
                                     <strong>Etat : </strong>
                                 </th>
                                 <th>
-                                    <input class="form-control form-control-sm" type="text" value="{{logement.Etat}}" aria-label="Disabled input example" disabled readonly>
+                                    {% set logementEtat = "Occupé" %}
+                                    {% if logement.Etat == 1 %}
+                                        {% set logementEtat = "Libre" %}
+                                        <img src="/vert.png" width=10 height=10>
+                                    {% else %}
+                                        <img src="/rouge.png" width=10 height=10>
+                                    {% endif %}
+                                    {{logementEtat}}
                                 </th>
                             </tr>
                         </table>
-                    </div>
-                    </div>
-                    <div class="card-footer">
-                        <center><button class="btn btn-sm btn-outline-secondary me-2"><a href="{{path('logement_profile', {id:logement.id})}}">Détail</a></button></center>
+                        <br>
+                        <center><button class="btn btn-outline-primary"><a href="{{path('logement_profile', {id:logement.id})}}">Voir</a></button></center>        
                     </div>
                 </div>
             </div>

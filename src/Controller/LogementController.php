@@ -22,6 +22,28 @@ class LogementController extends AbstractController
         $locataires = $locataireRepository->findAll();
         $logements = $logementRepository->findAll();
 
+        //Définit l'état de chaque logements en fonction de la date actuelle
+        $dateToday = new \DateTime("now");
+        foreach ($logements as $logement) 
+        {
+            $trouve = false;
+            foreach ($reservations as $reservation) 
+            {
+                if($reservation->getLogements() == $logement)
+                {
+                    if (($dateToday > $reservation->getDateDebut())&($dateToday < $reservation->getDateFin())) 
+                    {
+                        $logement->setEtat("0");
+                        $trouve = true;
+                    }    
+                }
+            } 
+            if($trouve == false)
+            {
+                $logement->setEtat("1");
+            }   
+        }
+
         return $this->render('logement/listeLogements.html.twig', [
             'reservations' => $reservations,'locataires' => $locataires,'logements' =>$logements
         ]);
@@ -33,6 +55,28 @@ class LogementController extends AbstractController
         $reservations = $reservationRepository->find($id);
         $locataires = $locataireRepository->find($id);
         $logements = $logementRepository->find($id);
+
+        //Définit l'état de chaque logements en fonction de la date actuelle
+        $dateToday = new \DateTime("now");
+        foreach ($logements as $logement) 
+        {
+            $trouve = false;
+            foreach ($reservations as $reservation) 
+            {
+                if($reservation->getLogements() == $logement)
+                {
+                    if (($dateToday > $reservation->getDateDebut())&($dateToday < $reservation->getDateFin())) 
+                    {
+                        $logement->setEtat("0");
+                        $trouve = true;
+                    }    
+                }
+            } 
+            if($trouve == false)
+            {
+                $logement->setEtat("1");
+            }   
+        }
 
         return $this->render('logement/profileLogement.html.twig', [
             'reservations' => $reservations,'locataires' => $locataires,'logements' =>$logements

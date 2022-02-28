@@ -39,7 +39,6 @@ class LogementType extends AbstractType
                 'required' => true,
                 'label' => false
             ])
-            ->add('Etat')
         ;
     }
 

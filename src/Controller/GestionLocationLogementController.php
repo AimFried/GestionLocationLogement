@@ -58,6 +58,28 @@ class GestionLocationLogementController extends AbstractController
         $logement = $logementRepository->find($id);
         $reservations = $reservationRepository->findAll();
 
+        //Définit l'état de chaque logements en fonction de la date actuelle
+        $dateToday = new \DateTime("now");
+        foreach ($logements as $loge) 
+        {
+            $trouve = false;
+            foreach ($reservations as $reservation) 
+            {
+                if($reservation->getLogements() == $loge)
+                {
+                    if (($dateToday > $reservation->getDateDebut())&($dateToday < $reservation->getDateFin())) 
+                    {
+                        $logement->setEtat("0");
+                        $trouve = true;
+                    }    
+                }
+            } 
+            if($trouve == false)
+            {
+                $logement->setEtat("1");
+            }   
+        }
+
         $rdvs = [];
 
         foreach ($reservations as $reservation) 

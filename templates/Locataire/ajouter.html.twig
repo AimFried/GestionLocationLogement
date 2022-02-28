@@ -1,11 +1,95 @@
 {% extends 'base.html.twig' %}
 
+{% block title %}Locataire | Supprimer{% endblock %}
 
 {% block body %}
+{{ form_start(form) }}
 <div style="margin-top: 80px;">
-    {{ form_start(form) }}
-    {{ form_rest(form) }}
-    <button type="submit">Ajouter</button>
-    {{ form_end(form) }}
-    </div>
+    <div class="container-fluid">
+	<div class="row">
+    <center><h2>Ajouter un locataire</h2><center><br><br
+		<div class="col-md-1">
+		</div>
+		<div class="col-md-11">
+			<div class="row">
+				<div class="col-md-8">
+                    <div class="card">
+                        <div class="card-body">
+                            <center><h5 class="card-title">Information générale</h5></center>
+                            <hr>
+                            <table style="width: 100%;">
+                                <tr>
+                                    <th style="width: 40%;padding-right: 5%;">
+										<h6 class="card-subtitle mb-2 text-muted">Nom</h6>
+                                        <center>{{form_row(form.Nom)}}</center>
+                                    </th>
+                                    <th style="width: 40%;">
+                                        <h6 class="card-subtitle mb-2 text-muted">Pernom</h6>
+                                        <center>{{form_row(form.Prenom)}}</center>
+                                    </th>
+                                </tr>
+                            </table>
+							<br>
+                        </div>
+                    </div>               
+				</div>
+				<div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Coordonnées</h5>
+                            <hr>
+							<br>
+								<table>
+									<tr>
+										<th style="width: 60%;">
+											<h6 class="card-subtitle mb-2 text-muted">Email</h6>
+											<center>{{form_row(form.Email)}}</center>
+										</th>
+										<th>
+											<h6 class="card-subtitle mb-2 text-muted">Téléphone</h6>
+                                			<center>{{form_row(form.Telephone)}}</center>
+										</th>
+									</tr>
+                                </table>
+                                <br>
+                                <table>
+                                    <tr>
+										<th style="width: 75%;">
+											<h6 class="card-subtitle mb-2 text-muted">Adresse</h6>
+											<center>{{form_row(form.Adresse)}}</center>
+										</th>
+										<th>
+											<h6 class="card-subtitle mb-2 text-muted">Code postal</h6>
+                                			<center>{{form_row(form.CodePostal)}}</center>
+										</th>
+									</tr>
+								</table>
+							<br>
+                        </div>
+                    </div>
+					<br>
+					<div class="card">
+                        <div class="card-body">
+							<center>
+                            <div class="btn-group" role="group" aria-label="Basic outlined example">
+								<button type="submit" class="btn btn-outline-primary">Enregistrer</button>
+								<button type="button" class="btn btn-outline-primary"><a href="{{path('locataire')}}">Annuler</a></button>
+							</div>
+							</center>
+                        </div>
+                    </div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-8">
+
+				</div>
+				<div class="col-md-4">
+
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{{ form_end(form) }}					
 {% endblock %}

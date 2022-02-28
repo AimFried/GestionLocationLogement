@@ -1,11 +1,125 @@
 {% extends 'base.html.twig' %}
 
+{% block title %}Locataire | Modifier{% endblock %}
 
 {% block body %}
+{{ form_start(form) }}
 <div style="margin-top: 80px;">
-    {{ form_start(form) }}
-    {{ form_rest(form) }}
-    <button type="submit">Enregistrer</button>
-    {{ form_end(form) }}
-    </div>
+    <div class="container-fluid">
+	<div class="row">
+    <center><h2>Modification : {{locataire.Nom}}</h2><center><br><br
+		<div class="col-md-1">
+		</div>
+		<div class="col-md-11">
+			<div class="row">
+				<div class="col-md-8">
+                    <div class="card">
+                        <div class="card-body">
+                            <center><h5 class="card-title">Information générale</h5></center>
+                            <hr>
+                            <table style="width: 100%;">
+                                <tr>
+                                    <th style="width: 40%;padding-right: 5%;">
+										<h6 class="card-subtitle mb-2 text-muted">Nom</h6>
+                                        <center>{{form_row(form.Nom)}}</center>
+                                    </th>
+                                    <th style="width: 40%;">
+                                        <h6 class="card-subtitle mb-2 text-muted">Pernom</h6>
+                                        <center>{{form_row(form.Prenom)}}</center>
+                                    </th>
+                                </tr>
+                            </table>
+                            <br>
+                            <hr>
+                            <br>
+                            <center><h6 class="card-subtitle mb-2 text-muted">Dernière(s) réservation(s)</h6></center>
+							<table class="table table-striped">
+									<thead>
+										<tr>
+											<th>Locataire</th>
+											<th>Debut</th>
+											<th>Fin</th>
+											<th>Adulte(s)</th>
+											<th>Enfant(s)</th>
+											<th>Prix de la Nuit</th>
+											<th>Taxe Variables</th>
+											<th>Prix Total</th>
+										</tr>
+									</thead>
+									<tbody>
+                                    {% for uneReservation in locataire.Reservations %}
+									<tr>
+										<th scope="row"><a href="">{{uneReservation.locataires.Nom}}</a></th>
+										<th scope="row">{{uneReservation.DateDebut|date("m/d/Y")}}</th>
+										<th scope="row">{{uneReservation.DateFin|date("m/d/Y")}}</th>
+										<th scope="row">{{uneReservation.NbrAdulte}}</th>
+										<th scope="row">{{uneReservation.NbrEnfant}}</th>
+										<th scope="row">{{uneReservation.PrixNuit}} €</th>
+										<th scope="row">{{uneReservation.TaxeVariable}} €</th>
+										<th scope="row">{{uneReservation.PrixTotal}} €</th>
+									</tr>
+								{% endfor %}
+							</table>
+                        </div>
+                    </div>               
+				</div>
+				<div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Coordonnées</h5>
+                            <hr>
+							<br>
+								<table>
+									<tr>
+										<th style="width: 60%;">
+											<h6 class="card-subtitle mb-2 text-muted">Email</h6>
+											<center>{{form_row(form.Email)}}</center>
+										</th>
+										<th>
+											<h6 class="card-subtitle mb-2 text-muted">Téléphone</h6>
+                                			<center>{{form_row(form.Telephone)}}</center>
+										</th>
+									</tr>
+                                </table>
+                                <br>
+                                <table>
+                                    <tr>
+										<th style="width: 75%;">
+											<h6 class="card-subtitle mb-2 text-muted">Adresse</h6>
+											<center>{{form_row(form.Adresse)}}</center>
+										</th>
+										<th>
+											<h6 class="card-subtitle mb-2 text-muted">Code postal</h6>
+                                			<center>{{form_row(form.CodePostal)}}</center>
+										</th>
+									</tr>
+								</table>
+							<br>
+                        </div>
+                    </div>
+					<br>
+					<div class="card">
+                        <div class="card-body">
+							<center>
+                            <div class="btn-group" role="group" aria-label="Basic outlined example">
+								<button type="submit" class="btn btn-outline-primary">Enregistrer</button>
+								<button type="button" class="btn btn-outline-primary"><a href="{{path('locataire_profile', {id:locataire.id})}}">Annuler</a></button>
+							</div>
+							</center>
+                        </div>
+                    </div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-8">
+
+				</div>
+				<div class="col-md-4">
+
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{{ form_end(form) }}					
 {% endblock %}

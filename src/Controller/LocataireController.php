@@ -28,11 +28,11 @@ class LocataireController extends AbstractController
     #[Route('/locataire/profile/{id}', name: 'locataire_profile')]
     public function profile(RESERVATIONRepository $reservationRepository, LOCATAIRERepository $locataireRepository, $id): Response
     {
-        $reservations = $reservationRepository->find($id);
-        $locataires = $locataireRepository->find($id);
+        $reservation = $reservationRepository->find($id);
+        $locataire = $locataireRepository->find($id);
 
         return $this->render('locataire/profileLocataire.html.twig', [
-            'reservations' => $reservations,'locataires' => $locataires,
+            'reservation' => $reservation,'locataire' => $locataire,
         ]);
     }
 
@@ -59,8 +59,11 @@ class LocataireController extends AbstractController
     }
 
     #[Route('/locataire/modifier/{id}', name: 'locataire_modifier')]
-    public function modifier(Request $request,ManagerRegistry $doctrine, LOCATAIRE $locataire): Response
+    public function modifier(Request $request,ManagerRegistry $doctrine, LOCATAIRE $locataire, LOCATAIRERepository $locataireRepository,$id): Response
     {
+        $locataire = $locataireRepository->find($id);
+        $locataires = $locataireRepository->findAll();
+
         $entityManager = $doctrine->getManager();
 
         $form = $this->createForm(LocataireType::class, $locataire);
@@ -74,13 +77,16 @@ class LocataireController extends AbstractController
             }
 
         return $this->render('locataire/modifier.html.twig', [
-            'form' => $form->createView(),
+            'form' => $form->createView(), 'locataire' => $locataire, 'locataires' => $locataires
         ]);
     }
 
     #[Route('/locataire/supprimer{id}', name: 'locataire_supprimer')]
-    public function supprimer(RESERVATIONRepository $reservationRepository, LOCATAIRERepository $locataireRepository,Request $request,ManagerRegistry $doctrine, LOCATAIRE $locataire): Response
+    public function supprimer(LOCATAIRERepository $locataireRepository,Request $request,ManagerRegistry $doctrine, LOCATAIRE $locataire,$id): Response
     {
+        $locataire = $locataireRepository->find($id);
+        $locataires = $locataireRepository->findAll();
+
         $entityManager = $doctrine->getManager();
 
         $form = $this->createForm(LocataireType::class, $locataire);
@@ -94,7 +100,7 @@ class LocataireController extends AbstractController
             }
 
         return $this->render('locataire/supprimer.html.twig', [
-            'form' => $form->createView(),
+            'form' => $form->createView(),'locataire' => $locataire, 'locataires' => $locataires
         ]);
     }
 }
