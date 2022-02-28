@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
@@ -11,7 +12,7 @@ use App\Repository\RESERVATIONRepository;
 use App\Form\ReservationType;
 use App\Entity\RESERVATION;
 use App\Entity\Calendar;
-
+use DateTime;
 
 class ReservationController extends AbstractController
 {
@@ -72,6 +73,7 @@ class ReservationController extends AbstractController
                
                 $event = new Calendar();
                 
+                //Données calendrier
                 $event->setTitle($reservation->getLocataires()->getNom());
                 $event->setStart($reservation->getDateDebut());
                 $event->setEnd($reservation->getDateFin());
@@ -80,10 +82,29 @@ class ReservationController extends AbstractController
                 $event->setBorderColor($form['CouleurBordure']->getData());
                 $event->setTextColor($form['CouleurTexte']->getData());
                 $event->setAllday("0");
-                
+
+                //Données reservation
                 $reservation->setCalendrier($event);
+                $reservation->setTaxeVariable($form['TaxeVariable']->getData());
                 $reservation->setDescription($form['Description']->getData());
-                $reservation->setNbrJours("2");
+                
+                //Calcule le nombres de jours en fonction de deux dates
+                $firstDate  = $reservation->getDateDebut();
+                $secondDate = $reservation->getDateFin();
+                $intvl = $firstDate->diff($secondDate);
+                $reservation->setNbrJours($intvl->days);
+                
+                //Calcule Prix taxe
+                $nbrAdulte = $reservation->getNbrAdulte();
+                $nbrNuit = $reservation->getNbrJours();
+                $taxeVariable = $reservation->getTaxeVariable(); //2 étoiles classement
+
+                $ValeurTaxe = $nbrAdulte * $nbrNuit * $taxeVariable;
+                $reservation->setValeurTaxe($ValeurTaxe);
+                $prixTotal = $ValeurTaxe + $reservation->getNbrJours() * $reservation->getPrixNuit();
+
+
+                $reservation->setPrixTotal($prixTotal);
 
                 $entityManager->persist($event);
                 $entityManager->persist($reservation);
@@ -114,8 +135,8 @@ class ReservationController extends AbstractController
         $form->handleRequest($request);
             if ($form->isSubmitted() && $form->isValid()){
                 
+                //Données calendrier
                 $event = $reservation->getCalendrier();
-
                 $event->setTitle($reservation->getLocataires()->getNom());
                 $event->setStart($reservation->getDateDebut());
                 $event->setEnd($reservation->getDateFin());
@@ -125,11 +146,37 @@ class ReservationController extends AbstractController
                 $event->setTextColor($form['CouleurTexte']->getData());
                 $event->setAllday("0");
                 
+                //Données reservation
                 $reservation->setCalendrier($event);
+                $reservation->setTaxeVariable($form['TaxeVariable']->getData());
 
-        
-                $reservation->setNbrJours("2");
+                //Calcule le nombres de jours en fonction de deux dates
+                $firstDate  = $reservation->getDateDebut();
+                $secondDate = $reservation->getDateFin();
+                $intvl = $firstDate->diff($secondDate);
+
+                $reservation->setNbrJours($intvl->days);
+
+                
+                //Calcule le nombres de jours en fonction de deux dates
+                $firstDate  = $reservation->getDateDebut();
+                $secondDate = $reservation->getDateFin();
+                $intvl = $firstDate->diff($secondDate);
+                $reservation->setNbrJours($intvl->days);
+                
+                //Calcule Prix taxe
+                $nbrAdulte = $reservation->getNbrAdulte();
+                $nbrNuit = $reservation->getNbrJours();
+                $taxeVariable = $reservation->getTaxeVariable(); //2 étoiles classement
+
+                $ValeurTaxe = $nbrAdulte * $nbrNuit * $taxeVariable;
+                $reservation->setValeurTaxe($ValeurTaxe);
+                $prixTotal = $ValeurTaxe + $reservation->getNbrJours() * $reservation->getPrixNuit();
+
+                $reservation->setPrixTotal($prixTotal);
+
                 $reservation->setDescription($form['Description']->getData());
+                
 
                 $entityManager->persist($event);
                 $entityManager->persist($reservation);

@@ -41,11 +41,12 @@
 									<thead>
 										<tr>
 											<th>Locataire</th>
-											<th>Date Debut</th>
-											<th>Date Fin</th>
+											<th>Debut</th>
+											<th>Fin</th>
 											<th>Adulte(s)</th>
 											<th>Enfant(s)</th>
-											<th>Prix Nuit</th>
+											<th>Prix de la Nuit</th>
+											<th>Taxe Variables</th>
 											<th>Prix Total</th>
 										</tr>
 									</thead>
@@ -57,8 +58,9 @@
 										<th scope="row">{{uneReservations.DateFin|date("m/d/Y")}}</th>
 										<th scope="row">{{uneReservations.NbrAdulte}}</th>
 										<th scope="row">{{uneReservations.NbrEnfant}}</th>
-										<th scope="row">{{uneReservations.PrixNuit}}</th>
-										<th scope="row">{{uneReservations.PrixTotal}}</th>
+										<th scope="row">{{uneReservations.PrixNuit}} €</th>
+										<th scope="row">{{uneReservations.TaxeVariable}} €</th>
+										<th scope="row">{{uneReservations.PrixTotal}} €</th>
 									</tr>
 								{% endfor %}
 							</table>

@@ -51,6 +51,12 @@ class RESERVATION
     #[ORM\Column(type: 'string', length: 255)]
     private $description;
 
+    #[ORM\Column(type: 'float')]
+    private $ValeurTaxe;
+
+    #[ORM\Column(type: 'float')]
+    private $TaxeVariable;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -204,6 +210,30 @@ class RESERVATION
     public function setDescription(string $description): self
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    public function getValeurTaxe(): ?float
+    {
+        return $this->ValeurTaxe;
+    }
+
+    public function setValeurTaxe(float $ValeurTaxe): self
+    {
+        $this->ValeurTaxe = $ValeurTaxe;
+
+        return $this;
+    }
+
+    public function getTaxeVariable(): ?float
+    {
+        return $this->TaxeVariable;
+    }
+
+    public function setTaxeVariable(float $TaxeVariable): self
+    {
+        $this->TaxeVariable = $TaxeVariable;
 
         return $this;
     }

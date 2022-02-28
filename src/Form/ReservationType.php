@@ -33,10 +33,6 @@ class ReservationType extends AbstractType
                 'required' => true,
                 'label' => "Prix de la nuit"
             ])
-            ->add('PrixTotal', MoneyType::class, [
-                'required' => true,
-                'label' => "Prix total"
-            ])
             ->add('NbrAdulte', NumberType::class, [
                 'required' => true,
                 'label' => "Nombre(s) d'adulte(s)"
@@ -46,6 +42,11 @@ class ReservationType extends AbstractType
                 'label' => "Nombre(s) d'enfant(s)"
             ])
             ->add('EtatContrat')
+            ->add('TaxeVariable', MoneyType::class, [
+                'required' => true,
+                'label' => false
+            
+            ])
             ->add('Locataires', EntityType::class, array(
                 'class' => LOCATAIRE::class,
                 'choice_label' => 'Nom',
