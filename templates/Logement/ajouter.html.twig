@@ -3,7 +3,7 @@
 {% block title %}Logement | Ajouter{% endblock %}
 
 {% block body %}
-{{form_start(form)}}
+
 <div style="margin-top: 80px;">
     <div class="container-fluid">
 	<div class="row">
@@ -17,15 +17,16 @@
                         <div class="card-body">
                             <center><h5 class="card-title">Information générale</h5></center>
                             <hr>
+							{{form_start(form)}}
                             <table style="width: 100%;">
                                 <tr>
                                     <th style="width: 40%;padding-right: 5%;">
 										<h6 class="card-subtitle mb-2 text-muted">Nom</h6>
-                                        <center>{{form_row(form.Nom)}}</center>
+                                        {{form_row(form.Nom)}}
                                     </th>
                                     <th style="width: 40%;">
                                         <h6 class="card-subtitle mb-2 text-muted">Nombre max de personne(s)</h6>
-                                        <center>{{form_row(form.PersMax)}}</center>
+                                        {{form_row(form.PersMax)}}
                                     </th>
                                 </tr>
                             </table>
@@ -58,19 +59,19 @@
 							<br>
 								<table>
 									<tr>
-										<th style="width: 75%;">
+										<th style="width: 70%;">
 											<h6 class="card-subtitle mb-2 text-muted">Ville</h6>
-											<center>{{form_row(form.Ville)}}</center>
+											{{form_row(form.Ville)}}
 										</th>
 										<th>
 											<h6 class="card-subtitle mb-2 text-muted">Code Postal</h6>
-                                			<center>{{form_row(form.CodePostal)}}</center>
+                                			{{form_row(form.CodePostal)}}
 										</th>
 									</tr>
 								</table>
 	                       		 <br>
                                 <h6 class="card-subtitle mb-2 text-muted">Adresse</h6>
-                                <center>{{form_row(form.Adresse)}}</center>
+                                {{form_row(form.Adresse)}}
 							<br>
                         </div>
                     </div>
@@ -79,7 +80,8 @@
                         <div class="card-body">
 							<center>
                             <div class="btn-group" role="group" aria-label="Basic outlined example">
-								<button type="submit" class="btn btn-outline-primary"><a href="{{path('logement')}}">Enregistrer</a></button>
+								<button type="submit" class="btn btn-outline-primary">Enregistrer</button>
+								{{form_end(form)}}
 								<button type="button" class="btn btn-outline-primary"><a href="{{path('logement')}}">Annuler</a></button>
 							</div>
 							</center>
@@ -100,5 +102,5 @@
 		</div>
 	</div>
 </div>
-{{form_end(form)}}							
+							
 {% endblock %}

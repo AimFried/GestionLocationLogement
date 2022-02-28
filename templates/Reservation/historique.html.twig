@@ -3,7 +3,7 @@
 {# Compte le nombres d'historiques #}
 {% set nbrHistoriques = 0 %}
 {% for uneReservations in reservations %}
-	{% if dateToday|date("m/d/Y") < uneReservations.DateFin|date("m/d/Y") %}
+	{% if dateToday|date("m/d/Y") > uneReservations.DateFin|date("m/d/Y") %}
 	{% set nbrHistoriques = nbrHistoriques + 1 %}
 	{% endif %}
 {% endfor %}
@@ -33,7 +33,7 @@
 				<tbody>
 				{# Afficher tous les historiques #}
 				{% for uneReservations in reservations %}
-					{% if dateToday|date("m/d/Y") < uneReservations.DateFin|date("m/d/Y") %}
+					{% if dateToday|date("m/d/Y") > uneReservations.DateFin|date("m/d/Y") %}
 					<tr>
                     	<th scope="row"><a href="{{path('logement_profile', {id:uneReservations.logements.id})}}">{{uneReservations.logements.Nom}}</a></th>
 						<th scope="row"><a href="{{path('locataire_profile', {id:uneReservations.locataires.id})}}">{{uneReservations.Locataires.Nom}}</a></th>

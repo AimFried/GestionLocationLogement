@@ -1,0 +1,126 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Réservation | Profile{% endblock %}
+
+{% block body %}
+<div style="margin-top: 80px;">
+    <div class="container-fluid">
+	<div class="row">
+    <center><h2>Réservation : </h2><center><br><br>
+		<div class="col-md-1">
+		</div>
+		<div class="col-md-10">
+			<div class="row">
+				<div class="col-md-8">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Information générale</h5>
+                            <hr>
+                            <br>
+                            <table style="width: 100%;">
+                                <tr>
+                                    <th style="width: 40%;padding-right: 5%;">
+                                        <center><input class="form-control form-control-sm" type="text" value="{{reservations.locataires.Nom}}" aria-label="Disabled input example" disabled readonly></center>
+                                    </th>
+                                    <th style="width: 40%;">
+                                        <center><input class="form-control form-control-sm" type="text" value="{{reservations.logements.Nom}}" aria-label="Disabled input example" disabled readonly></center>
+                                    </th>
+                                </tr>
+                            </table>
+                            <table>
+                                <tr>
+                                    <th style="width: 10%;padding-right: 5%;">
+                                        <input type="checkbox" value="{{reservations.EtatContrat}}">
+                                    </th>
+                                </tr>
+                            </table>
+                            <br>
+                            <hr>
+                            <center>
+                            <table>
+                                <tr>
+                                    <th style="width: 20%;padding-right: 5%;">
+                                        <center>
+                                            <h6 class="card-subtitle mb-2 text-muted">Quantité(s)</h6>
+                                            <p>Nombre(s) d'adulte(s)</p>
+                                            <center><input class="form-control form-control-sm" type="text" value="{{reservations.nbrAdulte}}" aria-label="Disabled input example" disabled readonly></center>
+                                            <br>
+                                            <p>Nombre(s) d'enfant(s)</p>
+                                            <center><input class="form-control form-control-sm" type="text" value="{{reservations.nbrEnfant}}" aria-label="Disabled input example" disabled readonly></center>
+                                        </center>
+                                    </th>
+                                    <th style="width: 40%;padding-right: 5%;">
+                                        <center>
+                                            <h6 class="card-subtitle mb-2 text-muted">Prix(s)</h6>
+                                            <p>Prix de la nuit</p>
+                                            <center><input class="form-control form-control-sm" type="text" value="{{reservations.PrixNuit}}" aria-label="Disabled input example" disabled readonly></center>
+                                            <br>
+                                            <p>Prix total</p>
+                                            <center><input class="form-control form-control-sm" type="text" value="{{reservations.PrixTotal}}" aria-label="Disabled input example" disabled readonly></center>
+                                        </center>
+                                    </th>
+                                    <th style="width: 20%;padding-right: 5%;">
+                                        <center>
+                                            <h6 class="card-subtitle mb-2 text-muted">Couleur</h6>
+                                            <p>Réservation</p>
+                                            <center><input class="form-control form-control-sm" type="color" value="{{reservations.Calendrier.backgroundColor}}" aria-label="Disabled input example" disabled readonly></center>
+                                            <p>Bordure</p>
+                                            <center><input class="form-control form-control-sm" type="color" value="{{reservations.Calendrier.borderColor}}" aria-label="Disabled input example" disabled readonly></center>
+                                            <p>Texte</p>
+                                            <center><input class="form-control form-control-sm" type="color" value="{{reservations.Calendrier.textColor}}" aria-label="Disabled input example" disabled readonly></center>
+                                        </center>
+                                    </th>
+                                </tr>
+                            </table>
+                            </center>
+                            <br>
+                            <hr>
+                            <br>
+                            <center><h6 class="card-subtitle mb-2 text-muted">Description</h6></center>
+                            <center><input class="form-control form-control-sm" type="text" value="{{reservations.description}}" aria-label="Disabled input example" disabled readonly></center>
+                        </div>
+                    </div>       
+                                
+                 
+
+				</div>
+				<div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Période</h5>
+                            <hr>
+                                <center><h6 class="card-subtitle mb-2 text-muted">Début</h6></center>
+                                <center><input class="form-control form-control-sm" type="text" value="{{reservations.DateDebut|date("m/d/Y")}}" aria-label="Disabled input example" disabled readonly></center>
+                                <br>
+                                <center><h6 class="card-subtitle mb-2 text-muted">Fin</h6></center>
+                                <center><input class="form-control form-control-sm" type="text" value="{{reservations.DateFin|date("m/d/Y")}}" aria-label="Disabled input example" disabled readonly></center>
+                            <br>
+                            <hr>
+                            <br>
+                            <center>
+                            <div class="btn-group" role="group" aria-label="Basic outlined example">
+								<button type="button" class="btn btn-outline-primary"><a href="{{path('reservation_modifier', {id:reservations.id})}}">Modifier</a></button>
+								<button type="button" class="btn btn-outline-primary"><a href="{{path('reservation_supprimer', {id:reservations.id})}}">Supprimer</a></button>
+							</div>
+							<div style="margin-left: 20px;"class="btn-group" role="group" aria-label="Basic outlined example">
+								<button type="button" class="btn btn-outline-primary"><a href="{{path('reservation')}}">Retour</a></button>
+							</div>
+							</center>
+                        </div>
+                    </div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-8">
+
+				</div>
+				<div class="col-md-4">
+
+				</div>
+			</div>
+		</div>
+		<div class="col-md-1">
+		</div>
+	</div>
+</div>
+{% endblock %}

@@ -38,6 +38,26 @@ class ReservationController extends AbstractController
         ]);
     }
 
+    #[Route('/historique/profile/{id}', name: 'historique_profile')]
+    public function profileHistorique(RESERVATIONRepository $reservationRepository, $id): Response
+    {
+        $reservations = $reservationRepository->find($id);
+        
+        return $this->render('reservation/profileHistorique.html.twig', [
+            'reservations' => $reservations
+        ]);
+    }
+
+    #[Route('/reservation/profile/{id}', name: 'reservation_profile')]
+    public function profileReservation(RESERVATIONRepository $reservationRepository, $id): Response
+    {
+        $reservations = $reservationRepository->find($id);
+        
+        return $this->render('reservation/profileReservation.html.twig', [
+            'reservations' => $reservations
+        ]);
+    }
+
     #[Route('/reservation/ajouter', name: 'reservation_ajouter')]
     public function ajouter(Request $request,ManagerRegistry $doctrine): Response
     {
@@ -63,6 +83,7 @@ class ReservationController extends AbstractController
                 
                 $reservation->setCalendrier($event);
                 $reservation->setDescription($form['Description']->getData());
+                $reservation->setNbrJours("2");
 
                 $entityManager->persist($event);
                 $entityManager->persist($reservation);
