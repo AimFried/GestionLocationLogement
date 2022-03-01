@@ -45,8 +45,15 @@ class LocataireController extends AbstractController
 
         $form = $this->createForm(LocataireType::class, $locataire);
 
+        
+
         $form->handleRequest($request);
             if ($form->isSubmitted() && $form->isValid()){
+                
+                $locataire->setNom(strtoupper($locataire->getNom()));
+                $locataire->setPrenom(strtolower($locataire->getPrenom()));
+                $locataire->setPrenom(ucwords($locataire->getPrenom()));
+
                 $entityManager->persist($locataire);
                 $entityManager->flush();
                
@@ -70,6 +77,11 @@ class LocataireController extends AbstractController
 
         $form->handleRequest($request);
             if ($form->isSubmitted() && $form->isValid()){
+                
+                $locataire->setNom(strtoupper($locataire->getNom()));
+                $locataire->setPrenom(strtolower($locataire->getPrenom()));
+                $locataire->setPrenom(ucwords($locataire->getPrenom()));
+
                 $entityManager->persist($locataire);
                 $entityManager->flush();
                
@@ -81,26 +93,16 @@ class LocataireController extends AbstractController
         ]);
     }
 
-    #[Route('/locataire/supprimer{id}', name: 'locataire_supprimer')]
+    #[Route('/locataire/supprimer/{id}', name: 'locataire_supprimer')]
     public function supprimer(LOCATAIRERepository $locataireRepository,Request $request,ManagerRegistry $doctrine, LOCATAIRE $locataire,$id): Response
     {
         $locataire = $locataireRepository->find($id);
-        $locataires = $locataireRepository->findAll();
-
+    
         $entityManager = $doctrine->getManager();
 
-        $form = $this->createForm(LocataireType::class, $locataire);
-
-        $form->handleRequest($request);
-            if ($form->isSubmitted() && $form->isValid()){
-                $entityManager->remove($locataire);
-                $entityManager->flush();
+        $entityManager->remove($locataire);
+        $entityManager->flush();
                
-                return $this->redirectToRoute('locataire');
-            }
-
-        return $this->render('locataire/supprimer.html.twig', [
-            'form' => $form->createView(),'locataire' => $locataire, 'locataires' => $locataires
-        ]);
+    return $this->redirectToRoute('locataire');
     }
 }

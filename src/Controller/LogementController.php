@@ -16,11 +16,13 @@ use App\Repository\LOGEMENTRepository;
 class LogementController extends AbstractController
 {
     #[Route('/logement', name: 'logement')]
-    public function listeLogements(RESERVATIONRepository $reservationRepository, LOCATAIRERepository $locataireRepository, LOGEMENTRepository $logementRepository): Response
+    public function listeLogements(ManagerRegistry $doctrine, RESERVATIONRepository $reservationRepository, LOCATAIRERepository $locataireRepository, LOGEMENTRepository $logementRepository): Response
     {
         $reservations = $reservationRepository->findAll();
         $locataires = $locataireRepository->findAll();
         $logements = $logementRepository->findAll();
+
+        $entityManager = $doctrine->getManager();
 
         //Définit l'état de chaque logements en fonction de la date actuelle
         $dateToday = new \DateTime("now");
@@ -41,7 +43,9 @@ class LogementController extends AbstractController
             if($trouve == false)
             {
                 $logement->setEtat("1");
-            }   
+            }
+            $entityManager->persist($logement);
+            $entityManager->flush();   
         }
 
         return $this->render('logement/listeLogements.html.twig', [
@@ -55,28 +59,6 @@ class LogementController extends AbstractController
         $reservations = $reservationRepository->find($id);
         $locataires = $locataireRepository->find($id);
         $logements = $logementRepository->find($id);
-
-        //Définit l'état de chaque logements en fonction de la date actuelle
-        $dateToday = new \DateTime("now");
-        foreach ($logements as $logement) 
-        {
-            $trouve = false;
-            foreach ($reservations as $reservation) 
-            {
-                if($reservation->getLogements()->getId() == $logement->getId())
-                {
-                    if (($dateToday > $reservation->getDateDebut())&($dateToday < $reservation->getDateFin())) 
-                    {
-                        $logement->setEtat("0");
-                        $trouve = true;
-                    }    
-                }
-            } 
-            if($trouve == false)
-            {
-                $logement->setEtat("1");
-            }   
-        }
 
         return $this->render('logement/profileLogement.html.twig', [
             'reservations' => $reservations,'locataires' => $locataires,'logements' =>$logements
@@ -94,6 +76,7 @@ class LogementController extends AbstractController
 
         $form->handleRequest($request);
             if ($form->isSubmitted() && $form->isValid()){
+                $logement->setEtat("1");
                 $entityManager->persist($logement);
                 $entityManager->flush();
                
@@ -127,25 +110,15 @@ class LogementController extends AbstractController
     }
 
     #[Route('/logement/supprimer/{id}', name: 'logement_supprimer')]
-    public function supprimer(Request $request,ManagerRegistry $doctrine,LOGEMENT $logement, RESERVATIONRepository $reservationRepository, LOCATAIRERepository $locataireRepository, LOGEMENTRepository $logementRepository,$id): Response
+    public function supprimer(Request $request,ManagerRegistry $doctrine,LOGEMENT $logement, LOGEMENTRepository $logementRepository,$id): Response
     {
-        $reservations = $reservationRepository->find($id);
-        $locataires = $locataireRepository->find($id);
-        $logements = $logementRepository->find($id);
+        $logement = $logementRepository->find($id);
 
         $entityManager = $doctrine->getManager();
 
-        $form = $this->createForm(LogementType::class, $logement);
-
-        $form->handleRequest($request);
-            if ($form->isSubmitted() && $form->isValid()){
-                $entityManager->remove($logement);
-                $entityManager->flush();
+        $entityManager->remove($logement);
+        $entityManager->flush();
                
-                return $this->redirectToRoute('logement');
-            }
-        return $this->render('Logement/supprimer.html.twig', [
-            'form' => $form->createView(),'reservations' => $reservations,'locataires' => $locataires,'logements' =>$logements,
-        ]);
+        return $this->redirectToRoute('logement');
     }
 }

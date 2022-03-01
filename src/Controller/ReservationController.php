@@ -197,27 +197,11 @@ class ReservationController extends AbstractController
         $reservation = $reservationRepository->find($id);
 
         $entityManager = $doctrine->getManager();
-
-        $form = $this->createForm(ReservationType::class, $reservation);
-
-        //Initialisation des champs non mappé
-        $event_temp = $reservation->getCalendrier();
-        $form['Description']->setData($event_temp->getDescription());
-        $form['CouleurFond']->setData($event_temp->getBackgroundColor());
-        $form['CouleurBordure']->setData($event_temp->getBorderColor());
-        $form['CouleurTexte']->setData($event_temp->getTextColor());
-
-        $form->handleRequest($request);
-            if ($form->isSubmitted() && $form->isValid()){
-                              
-                $entityManager->remove($reservation->getCalendrier());
-                $entityManager->remove($reservation);
-                $entityManager->flush();
+                         
+        $entityManager->remove($reservation->getCalendrier());
+        $entityManager->remove($reservation);
+        $entityManager->flush();
                
-                return $this->redirectToRoute('reservation');
-            }
-        return $this->render('Reservation/supprimer.html.twig', [
-            'form' => $form->createView(),'reservation' => $reservation
-        ]);
+        return $this->redirectToRoute('reservation');
     }
 }

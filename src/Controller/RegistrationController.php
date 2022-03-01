@@ -89,11 +89,8 @@ class RegistrationController extends AbstractController
         $entityManager->remove($user);
         $entityManager->flush();
 
-            return $this->redirectToRoute('parametres');
+        return $this->redirectToRoute('parametres');
         
-
-        return $this->render('Parametres/utilisateur/supprimer.html.twig', [
-        ]);
     }
 
     #[Route('/verify/email', name: 'app_verify_email')]
