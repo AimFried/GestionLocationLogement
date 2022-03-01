@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Utilisateur | Modifier{% endblock %}
+{% block title %}Utilisateur | Profile{% endblock %}
 
 {% block body %}
     {% for flashError in app.flashes('verify_email_error') %}
@@ -12,25 +12,22 @@
             <div class="col-md-3"></div>
             <div class="col-md-6">
                 <div class="card">
-                    <div class="card-body" style="height: 20%;">
-                        <h1 class="card-title"><center>Modifier un nouvel utilisateur</center></h1>
+                    <div class="card-body" style="height: 30%;">
+                        <h1 class="card-title"><center>Utilisateur : {{user.email}}</center></h1>
                         <hr>
                         <br>
-                        {{ form_start(form) }}
-
                         <center><h6 class="card-subtitle mb-2 text-muted">Adresse email</h6></center>
-                        {{ form_row(registrationForm.email) }}
+                        <center><input class="form-control form-control-sm" type="text" value="{{user.email}}" aria-label="Disabled input example" disabled readonly></center>
                         <br>
-                        <center><h6 class="card-subtitle mb-2 text-muted">Mot de passe</h6></center>
-                        {{ form_row(form.motDePasse) }}
+                        <center><h6 class="card-subtitle mb-2 text-muted">Role</h6></center>
+                        <center><input class="form-control form-control-sm" type="text" value="Administrateur" aria-label="Disabled input example" disabled readonly></center>
                         <br>
                         <center>
                             <div class="btn-group" role="group" aria-label="Basic outlined example">
-								<button type="submit" class="btn btn-outline-primary">Enregistrer</button>
+								<button type="button" class="btn btn-outline-primary"><a href="{{path('utilisateur_supprimer', {id:user.id})}}">Supprimer</a></button>
 								<button type="button" class="btn btn-outline-primary"><a href="{{path('parametres')}}">Annuler</a></button>
 							</div>
 						</center>
-                    {{ form_end(form) }}
                     </div>
                 </div>
             </div> 

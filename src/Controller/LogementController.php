@@ -29,7 +29,7 @@ class LogementController extends AbstractController
             $trouve = false;
             foreach ($reservations as $reservation) 
             {
-                if($reservation->getLogements() == $logement)
+                if($reservation->getLogements()->getId() == $logement->getId())
                 {
                     if (($dateToday > $reservation->getDateDebut())&($dateToday < $reservation->getDateFin())) 
                     {
@@ -63,7 +63,7 @@ class LogementController extends AbstractController
             $trouve = false;
             foreach ($reservations as $reservation) 
             {
-                if($reservation->getLogements() == $logement)
+                if($reservation->getLogements()->getId() == $logement->getId())
                 {
                     if (($dateToday > $reservation->getDateDebut())&($dateToday < $reservation->getDateFin())) 
                     {

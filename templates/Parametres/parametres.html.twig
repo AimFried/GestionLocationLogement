@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Parametre(s){% endblock %}
+{% block title %}Parametres{% endblock %}
 
 {% block body %}
 <div class="container-fluid">
@@ -19,7 +19,7 @@
                         <center>
                             <select id="listeUtilisateur" class="form-select" size="5" aria-label="size 3 select example">
                                     {% for unUtilisateur in utilisateurs %}
-                                    <option>{{unUtilisateur.email}}</option>
+                                    <option onClick="window.location.replace('{{path('utilisateur_profile', {id:unUtilisateur.id})}}');">{{unUtilisateur.email}}</option>
                                     
                                     {% endfor %}
                             </select>
@@ -27,7 +27,6 @@
                         <br>
                         <center>
                             <button type="button" class="btn btn-outline-primary"><a href="{{path('utilisateur_ajouter')}}">Ajouter</a></button>
-                            <button type="button" class="btn btn-outline-primary" onClick="window.location.replace('/utilisateur/modifier/' + document.getElementById('listeUtilisateur').value);">Modifier</button>
                         </center>                  
                     </div>
                 </div>
