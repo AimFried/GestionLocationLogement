@@ -6,7 +6,7 @@
 <div style="margin-top: 80px;">
     <div class="container-fluid">
 	<div class="row">
-    <center><h2>Logement : {{logements.Nom}}</h2><center><br><br
+    <center><h2>Logement : {{logement.Nom}}</h2><center><br><br
 		<div class="col-md-1">
 		</div>
 		<div class="col-md-11">
@@ -20,18 +20,18 @@
                                 <tr>
                                     <th style="width: 40%;padding-right: 5%;">
 										<h6 class="card-subtitle mb-2 text-muted">Nom</h6>
-                                        <center><input class="form-control form-control-sm" type="text" value="{{logements.Nom}}" aria-label="Disabled input example" disabled readonly></center>
+                                        <center><input class="form-control form-control-sm" type="text" value="{{logement.Nom}}" aria-label="Disabled input example" disabled readonly></center>
                                     </th>
                                     <th style="width: 40%;">
                                         <h6 class="card-subtitle mb-2 text-muted">Nombre max de personne(s)</h6>
-                                        <center><input class="form-control form-control-sm" type="text" value="{{logements.PersMax}}" aria-label="Disabled input example" disabled readonly></center>
+                                        <center><input class="form-control form-control-sm" type="text" value="{{logement.PersMax}}" aria-label="Disabled input example" disabled readonly></center>
                                     </th>
                                 </tr>
                             </table>
                             <br>
                             <center>                        
                                 <h6 class="card-subtitle mb-2 text-muted">Commentaire</h6>
-								<input class="form-control form-control-sm" type="text" value="{{logements.Description}}" aria-label="Disabled input example" disabled readonly>
+								<input class="form-control form-control-sm" type="text" value="{{logement.Description}}" aria-label="Disabled input example" disabled readonly>
                             </center>
                             <br>
                             <hr>
@@ -51,16 +51,16 @@
 										</tr>
 									</thead>
 									<tbody>
-								{% for uneReservations in logements.reservations %}
+								{% for uneReservation in logement.reservations %}
 									<tr>
-										<th scope="row"><a href="">{{uneReservations.locataires.Nom}}</a></th>
-										<th scope="row">{{uneReservations.DateDebut|date("m/d/Y")}}</th>
-										<th scope="row">{{uneReservations.DateFin|date("m/d/Y")}}</th>
-										<th scope="row">{{uneReservations.NbrAdulte}}</th>
-										<th scope="row">{{uneReservations.NbrEnfant}}</th>
-										<th scope="row">{{uneReservations.PrixNuit}} €</th>
-										<th scope="row">{{uneReservations.TaxeVariable}} €</th>
-										<th scope="row">{{uneReservations.PrixTotal}} €</th>
+										<th scope="row"><a href="{{path('locataire_profile',{id:uneReservation.locataires.id})}}">{{uneReservation.locataires.Nom}}</a></th>
+										<th scope="row">{{uneReservation.DateDebut|date("m/d/Y")}}</th>
+										<th scope="row">{{uneReservation.DateFin|date("m/d/Y")}}</th>
+										<th scope="row">{{uneReservation.NbrAdulte}}</th>
+										<th scope="row">{{uneReservation.NbrEnfant}}</th>
+										<th scope="row">{{uneReservation.PrixNuit}} €</th>
+										<th scope="row">{{uneReservation.TaxeVariable}} €</th>
+										<th scope="row">{{uneReservation.PrixTotal}} €</th>
 									</tr>
 								{% endfor %}
 							</table>
@@ -73,7 +73,7 @@
                             <h5 class="card-title"> 
 							<center>
 							{% set logementEtat = "Occupé" %}
-							{% if logements.Etat == 1 %}
+							{% if logement.Etat == 1 %}
 								{% set logementEtat = "Libre" %}
 								<img src="/vert.png" width=10 height=10>
 							{% else %}
@@ -94,17 +94,17 @@
 									<tr>
 										<th style="width: 70%;">
 											<h6 class="card-subtitle mb-2 text-muted">Ville</h6>
-											<center><input class="form-control form-control-sm" type="text" value="{{logements.Ville}}" aria-label="Disabled input example" disabled readonly></center>
+											<center><input class="form-control form-control-sm" type="text" value="{{logement.Ville}}" aria-label="Disabled input example" disabled readonly></center>
 										</th>
 										<th>
 											<h6 class="card-subtitle mb-2 text-muted">Code Postal</h6>
-                                			<center><input class="form-control form-control-sm" type="text" value="{{logements.CodePostal}}" aria-label="Disabled input example" disabled readonly></center>
+                                			<center><input class="form-control form-control-sm" type="text" value="{{logement.CodePostal}}" aria-label="Disabled input example" disabled readonly></center>
 										</th>
 									</tr>
 								</table>
 	                       		 <br>
                                 <h6 class="card-subtitle mb-2 text-muted">Adresse</h6>
-                                <center><input class="form-control form-control-sm" type="text" value="{{logements.Adresse}}" aria-label="Disabled input example" disabled readonly></center>
+                                <center><input class="form-control form-control-sm" type="text" value="{{logement.Adresse}}" aria-label="Disabled input example" disabled readonly></center>
 							<br>
                         </div>
                     </div>
@@ -113,12 +113,15 @@
                         <div class="card-body">
 							<center>
                             <div class="btn-group" role="group" aria-label="Basic outlined example">
-								<button type="button" class="btn btn-outline-primary"><a href="{{path('logement_modifier', {id:logements.id})}}">Modifier</a></button>
-								<button type="button" class="btn btn-outline-primary"><a href="{{path('logement_supprimer', {id:logements.id})}}">Supprimer</a></button>
+								<button type="button" class="btn btn-outline-primary"><a href="{{path('logement_modifier', {id:logement.id})}}">Modifier</a></button>			
+									<button type="button" class="btn btn-outline-primary"><a href="{{path('logement_supprimer', {id:logement.id})}}">Supprimer</a></button>
 							</div>
 							<div style="margin-left: 20px;"class="btn-group" role="group" aria-label="Basic outlined example">
 								<button type="button" class="btn btn-outline-primary"><a href="{{path('logement')}}">Retour</a></button>
 							</div>
+							
+            
+       
 							</center>
                         </div>
                     </div>

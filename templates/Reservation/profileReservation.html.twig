@@ -22,15 +22,17 @@
                                     <th style="width: 40%;padding-right: 5%;">
                                         <center><input class="form-control form-control-sm" type="text" value="{{reservations.locataires.Nom}}" aria-label="Disabled input example" disabled readonly></center>
                                     </th>
-                                    <th style="width: 40%;">
+                                    <th style="width: 40%;padding-right: 5%;">
                                         <center><input class="form-control form-control-sm" type="text" value="{{reservations.logements.Nom}}" aria-label="Disabled input example" disabled readonly></center>
                                     </th>
-                                </tr>
-                            </table>
-                            <table>
-                                <tr>
-                                    <th style="width: 10%;padding-right: 5%;">
-                                        <input type="checkbox" value="{{reservations.EtatContrat}}">
+                                    <th style="width: 10%;">
+                                        {% set etat = "Non signé" %}
+                                        {% if reservations.EtatContrat == 1 %}
+                                            {% set etat = "Signé" %}
+                                        {% endif %}
+
+                                        <input class="form-control form-control-sm" type="text" value="{{etat}}" aria-label="Disabled input example" disabled readonly size="8" >
+                                       
                                     </th>
                                 </tr>
                             </table>

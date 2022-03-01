@@ -20,8 +20,10 @@ class LocataireController extends AbstractController
         $reservations = $reservationRepository->findAll();
         $locataires = $locataireRepository->findAll();
 
+        $dateToday = new \DateTime("now");
+
         return $this->render('locataire/listeLocataires.html.twig', [
-            'reservations' => $reservations,'locataires' => $locataires,
+            'reservations' => $reservations,'locataires' => $locataires,'dateToday' => $dateToday
         ]);
     }
 
@@ -100,9 +102,12 @@ class LocataireController extends AbstractController
     
         $entityManager = $doctrine->getManager();
 
-        $entityManager->remove($locataire);
-        $entityManager->flush();
-               
+        if($locataire->getReservations() == false)
+        {
+            $entityManager->remove($locataire);
+            $entityManager->flush();
+            return $this->redirectToRoute('locataire');
+        } 
     return $this->redirectToRoute('locataire');
     }
 }

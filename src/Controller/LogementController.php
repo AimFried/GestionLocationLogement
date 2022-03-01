@@ -58,10 +58,10 @@ class LogementController extends AbstractController
     {
         $reservations = $reservationRepository->find($id);
         $locataires = $locataireRepository->find($id);
-        $logements = $logementRepository->find($id);
+        $logement = $logementRepository->find($id);
 
         return $this->render('logement/profileLogement.html.twig', [
-            'reservations' => $reservations,'locataires' => $locataires,'logements' =>$logements
+            'reservations' => $reservations,'locataires' => $locataires,'logement' =>$logement
         ]);
     }
 
@@ -77,6 +77,13 @@ class LogementController extends AbstractController
         $form->handleRequest($request);
             if ($form->isSubmitted() && $form->isValid()){
                 $logement->setEtat("1");
+
+                $logement->setNom(strtolower($logement->getNom()));
+                $logement->setNom(ucwords($logement->getNom()));
+
+                $logement->setVille(strtolower($logement->getVille()));
+                $logement->setVille(ucwords($logement->getVille()));
+
                 $entityManager->persist($logement);
                 $entityManager->flush();
                
@@ -99,6 +106,13 @@ class LogementController extends AbstractController
 
         $form->handleRequest($request);
             if ($form->isSubmitted() && $form->isValid()){
+                
+                $logement->setNom(strtolower($logement->getNom()));
+                $logement->setNom(ucwords($logement->getNom()));
+
+                $logement->setVille(strtolower($logement->getVille()));
+                $logement->setVille(ucwords($logement->getVille()));
+
                 $entityManager->persist($logement);
                 $entityManager->flush();
                
@@ -116,9 +130,13 @@ class LogementController extends AbstractController
 
         $entityManager = $doctrine->getManager();
 
-        $entityManager->remove($logement);
-        $entityManager->flush();
-               
+        if($logement->getReservations() == false)
+        {
+            $entityManager->remove($logement);
+            $entityManager->flush();
+            
+            return $this->redirectToRoute('logement');
+        }
         return $this->redirectToRoute('logement');
     }
 }

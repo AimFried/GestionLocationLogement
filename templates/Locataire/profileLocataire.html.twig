@@ -48,7 +48,7 @@
 									<tbody>
                                     {% for uneReservation in locataire.Reservations %}
 									<tr>
-										<th scope="row"><a href="">{{uneReservation.locataires.Nom}}</a></th>
+										<th scope="row"><a href="{{path('logement_profile',{id:uneReservation.Logements.id})}}">{{uneReservation.Logements.Nom}}</a></th>
 										<th scope="row">{{uneReservation.DateDebut|date("m/d/Y")}}</th>
 										<th scope="row">{{uneReservation.DateFin|date("m/d/Y")}}</th>
 										<th scope="row">{{uneReservation.NbrAdulte}}</th>

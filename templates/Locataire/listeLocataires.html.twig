@@ -23,7 +23,7 @@
 						<th style="width: 15%;"><strong>Prenom</strong></th>
 						<th style="width: 10%;"><strong>Telephone</strong></th>
 						<th style="width: auto;"><strong>Email</strong></th>
-						<th style="width: 10%;"><strong>Dernière location</strong></th>
+						<th style="width: 10%;"><strong>Dernière réservation</strong></th>
 						<th style="width: 5%;"></th>
 					</tr>
 				</thead>
@@ -35,29 +35,20 @@
 						<th scope="row">{{unLocataires.Prenom}}</th>
 						<th scope="row">{{unLocataires.Telephone}}</th>
 						<th scope="row">{{unLocataires.Email}}</th>
-						{# Variables etat #}
-						{% set lastLocEtat = false %}
-						{% set lastLoc = 0 %}
-
-						{% for uneReservations in reservations %}
-
-							{% if uneReservations.locataires.id == unLocataires.id %}
-
-								{% if lastLoc == 0 %}
-								<th scope="row">{{uneReservations.DateDebut|date("m/d/Y")}}</th>
-								{% set lastLocEtat = lastLocEtat + 1 %}
-								{% endif %}
-
-							{% set lastLocEtat = true %}
-
+						{% set derniereReservation = "01/01/2000" %}
+						{% for uneReservation in unLocataires.reservations %}
+							
+							{% if derniereReservation < uneReservation.DateDebut|date("m/d/Y")%}
+								{% set derniereReservation = uneReservation.DateDebut|date("m/d/Y") %}
 							{% endif %}
-
 						{% endfor %}
-
-						{% if lastLocEtat == false %}
-							<th scope="row"></th>	
-						{% endif %}		
-
+						{% if derniereReservation != "01/01/2000" %}
+							{% if derniereReservation|date("m/d/Y") < dateToday %}
+								<th scope="row">{{derniereReservation|date("m/d/Y") }}</th>
+							{% endif %}
+						{% else %}
+							<th scope="row"></th>
+						{% endif %}
 						<th scope="row">
 							<center>
 								<div class="btn-group" role="group" aria-label="Basic outlined example">
