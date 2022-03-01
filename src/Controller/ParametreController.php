@@ -9,12 +9,12 @@ use App\Repository\UserRepository;
 
 class ParametreController extends AbstractController
 {
-    #[Route('/parametre', name: 'parametre')]
+    #[Route('/parametres', name: 'parametres')]
     public function parametre(UserRepository $userRepository): Response
     {
         $utilisateurs = $userRepository->findAll();
 
-        return $this->render('parametre/parametre.html.twig',[
+        return $this->render('Parametres/parametres.html.twig',[
            'utilisateurs' => $utilisateurs,  
         ]);
     }

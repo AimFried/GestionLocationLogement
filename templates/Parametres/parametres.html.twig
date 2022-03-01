@@ -1,14 +1,14 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Paramétre(s){% endblock %}
+{% block title %}Parametre(s){% endblock %}
 
 {% block body %}
 <div class="container-fluid">
         <div class="row">
         <div class="col-md-12">
-        <center><h1>Paramétre</h1>
+        <center><h1>Parametres</h1>
         <hr style="width: 20%;">
-        <p>Gestion Location | 1.0 <p></center>
+        <p>Gestion Location | <a href="https://github.com/AimFried/GestionLocationLogement">1.0</a> <p></center>
         </div>
     <div class="container-fluid">
         <div class="row">
@@ -17,15 +17,17 @@
                     <div class="card-body">
                         <h3 class="card-title"><center>Liste des utilisateur(s)</center></h3>                  
                         <center>
-                            <select class="form-select" size="5" aria-label="size 3 select example">
+                            <select id="listeUtilisateur" class="form-select" size="5" aria-label="size 3 select example">
                                     {% for unUtilisateur in utilisateurs %}
                                     <option>{{unUtilisateur.email}}</option>
+                                    
                                     {% endfor %}
                             </select>
                         </center> 
                         <br>
                         <center>
-                            <button type="button" class="btn btn-outline-primary"><a href="/inscription">Ajouter</a></button>
+                            <button type="button" class="btn btn-outline-primary"><a href="{{path('utilisateur_ajouter')}}">Ajouter</a></button>
+                            <button type="button" class="btn btn-outline-primary" onClick="window.location.replace('/utilisateur/modifier/' + document.getElementById('listeUtilisateur').value);">Modifier</button>
                         </center>                  
                     </div>
                 </div>

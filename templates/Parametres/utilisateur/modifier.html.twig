@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Utilisateur | Ajouts{% endblock %}
+{% block title %}Utilisateur | Modifier{% endblock %}
 
 {% block body %}
     {% for flashError in app.flashes('verify_email_error') %}
@@ -13,7 +13,7 @@
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-body" style="height: 20%;">
-                        <h1 class="card-title"><center>Ajouter un nouvel utilisateur</center></h1>
+                        <h1 class="card-title"><center>Modifier un nouvel utilisateur</center></h1>
                         <hr>
                         <br>
                         {{ form_start(registrationForm) }}
@@ -26,7 +26,7 @@
                         <br>
                         <center>
                             <div class="btn-group" role="group" aria-label="Basic outlined example">
-								<button type="submit" class="btn btn-outline-primary">Ajouter</button>
+								<button type="submit" class="btn btn-outline-primary">Enregistrer</button>
 								<button type="button" class="btn btn-outline-primary"><a href="{{path('parametres')}}">Annuler</a></button>
 							</div>
 						</center>

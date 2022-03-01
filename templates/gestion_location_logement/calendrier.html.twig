@@ -53,7 +53,7 @@
                         <hr>
                         <select class="form-select" size="5" aria-label="size 3 select example">
                             {% for unLogements in logements %}
-                            <option onClick="window.open('https://127.0.0.1:8000/calendrier/logement/'+{{unLogements.id}});">{{unLogements.Nom}}</option>
+                            <option onClick="window.location.replace('https://127.0.0.1:8000/calendrier/logement/'+{{unLogements.id}});">{{unLogements.Nom}}</option>
                             {% endfor %}
                         </select>
                     </div>

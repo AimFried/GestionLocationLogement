@@ -18,6 +18,7 @@
             <script src="/fullcalendar/lib/main.min.js"></script>
         {% endblock %}
     </head>
+    {% if is_granted('ROLE_USER') %}
     <body id="body-pd">
         <header class="header" id="header">
             <div class="header_toggle"> <i class='bx bx-menu' id="header-toggle"></i> </div>
@@ -34,7 +35,7 @@
                         <a href="/logement" class="nav_link"><i class='bx bx-building nav_icon'></i><span class="nav_name">Logement</span></a>
                         <a href="/locataire" class="nav_link"><i class='bx bx-user nav_icon'></i><span class="nav_name">Locataire</span></a>
                         <a href="/historique" class="nav_link"><i class='bx bx-archive nav_icon'></i><span class="nav_name">Historique</span></a>
-                        <a href="/parametre" class="nav_link"><i class='bx bx-gear nav_icon'></i><span class="nav_name">Paramètre</span></a>
+                        <a href="/parametres" class="nav_link"><i class='bx bx-gear nav_icon'></i><span class="nav_name">Parametres</span></a>
                     </div>
                 </div><a href="/deconnexion" class="nav_link"><i class='bx bx-log-out nav_icon'></i><span class="nav_name">Deconnexion</span></a>
             </nav>
@@ -44,5 +45,22 @@
         </div>
     </body>
     {% block footer %}{% endblock %}
-    
+    {% else %}
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-3"></div>
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body" style="height: 20%;">
+                            <h1 class="card-title"><center>Vous n'êtes pas identifié !</center></h1>
+                            <hr>
+                            <br>
+                            <center><button type="button" class="btn btn-outline-primary"><a href="{{path('connexion')}}">Se connecter</a></button></center>
+                        </div>
+                    </div> 
+                </div>
+                <div class="col-md-3"></div>
+            </div>
+        </div>
+    {% endif %}
 </html>
