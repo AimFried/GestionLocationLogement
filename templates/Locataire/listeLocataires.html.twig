@@ -6,7 +6,7 @@
 	{% set nbrLocataires = nbrLocataires + 1 %}
 {% endfor %}
 
-{% block title %}Liste des locataire(s){% endblock %}
+{% block title %}Liste des locataires{% endblock %}
 
 {% block header %}
 	<center><h3>{{nbrLocataires}} locataire(s)</h3></center>
@@ -15,13 +15,13 @@
 {% block body %}
     <div class="row">
 		<div class="col-md-12">
-			<center><h2>Liste de locataire(s)</h2></center>
+			<center><h2>Liste des locataires</h2></center>
 			<table class="table table-striped">
 				<thead>
 					<tr>
 						<th style="width: 15%;"><strong>Nom</strong></th>
-						<th style="width: 15%;"><strong>Prenom</strong></th>
-						<th style="width: 10%;"><strong>Telephone</strong></th>
+						<th style="width: 15%;"><strong>Prénom</strong></th>
+						<th style="width: 10%;"><strong>Téléphone</strong></th>
 						<th style="width: auto;"><strong>Email</strong></th>
 						<th style="width: 10%;"><strong>Dernière réservation</strong></th>
 						<th style="width: 5%;"></th>

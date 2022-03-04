@@ -35,11 +35,11 @@ class ReservationType extends AbstractType
             ])
             ->add('NbrAdulte', NumberType::class, [
                 'required' => true,
-                'label' => "Nombre(s) d'adulte(s)"
+                'label' => "Nombre d'adulte(s)"
             ])
             ->add('NbrEnfant', NumberType::class, [
                 'required' => true,
-                'label' => "Nombre(s) d'enfant(s)"
+                'label' => "Nombre d'enfant(s)"
             ])
             ->add('EtatContrat')
             ->add('TaxeVariable', MoneyType::class, [
