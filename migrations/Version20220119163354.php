@@ -30,6 +30,12 @@ final class Version20220119163354 extends AbstractMigration
         $this->addSql('ALTER TABLE reservation ADD calendrier_id INT DEFAULT NULL');
         $this->addSql('ALTER TABLE reservation ADD CONSTRAINT FK_42C84955FF52FC51 FOREIGN KEY (calendrier_id) REFERENCES calendar (id)');
         $this->addSql('CREATE UNIQUE INDEX UNIQ_42C84955FF52FC51 ON reservation (calendrier_id)');
+        $this->addSql('CREATE TABLE user (id INT AUTO_INCREMENT NOT NULL, email VARCHAR(180) NOT NULL, roles JSON NOT NULL, password VARCHAR(255) NOT NULL, UNIQUE INDEX UNIQ_8D93D649E7927C74 (email), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        $this->addSql('ALTER TABLE reservation CHANGE date_debut date_debut DATETIME NOT NULL, CHANGE date_fin date_fin DATETIME NOT NULL');
+        $this->addSql('ALTER TABLE reservation ADD nbr_jours DOUBLE PRECISION NOT NULL');
+        $this->addSql('ALTER TABLE reservation ADD description VARCHAR(255) NOT NULL');
+        $this->addSql('ALTER TABLE reservation ADD valeur_taxe DOUBLE PRECISION NOT NULL');
+        $this->addSql('ALTER TABLE reservation ADD taxe_variable DOUBLE PRECISION NOT NULL');
     }
 
     public function down(Schema $schema): void
